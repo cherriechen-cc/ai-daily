@@ -38,7 +38,7 @@
        RESET & BASE
     ============================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; scroll-behavior: smooth; }
+    html { font-size: 16px; scroll-behavior: smooth; overflow-x: hidden; }
     body {
       font-family: var(--font);
       background: var(--bg);
@@ -46,6 +46,8 @@
       line-height: 1.6;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      max-width: 100vw;
     }
     a { color: inherit; text-decoration: none; }
 
@@ -54,8 +56,10 @@
     ============================================ */
     .container {
       max-width: 1280px;
+      width: 100%;
       margin: 0 auto;
       padding: 0 24px;
+      box-sizing: border-box;
     }
 
     /* ============================================
@@ -164,6 +168,9 @@
     /* ============================================
        SECTION
     ============================================ */
+    section.section {
+      margin-bottom: 48px;
+    }
     .section-header {
       display: flex;
       align-items: center;
@@ -197,6 +204,29 @@
       font-size: 12px;
       color: var(--text-tertiary);
     }
+    .section-desc {
+      margin-bottom: 20px;
+      margin-top: -8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .section-type-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 100px;
+      letter-spacing: 0.04em;
+    }
+    .tag-tool { background: rgba(99,179,237,0.15); color: #63b3ed; border: 1px solid rgba(99,179,237,0.3); }
+    .tag-paper { background: rgba(188,140,255,0.15); color: #bc8cff; border: 1px solid rgba(188,140,255,0.3); }
+    .tag-news { background: rgba(86,211,100,0.12); color: #56d364; border: 1px solid rgba(86,211,100,0.25); }
+    .tag-internal { background: rgba(246,201,14,0.12); color: #e3b341; border: 1px solid rgba(246,201,14,0.25); }
+    .section-desc-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
 
     /* ============================================
        GITHUB CARDS GRID
@@ -205,6 +235,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 16px;
+      align-items: start;
     }
 
     .repo-card {
@@ -268,7 +299,19 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      flex: 1;
+    }
+
+    .card-rec {
+      font-size: 12px;
+      color: #f6c90e;
+      background: rgba(246, 201, 14, 0.08);
+      border: 1px solid rgba(246, 201, 14, 0.2);
+      border-radius: var(--radius-xs);
+      padding: 5px 10px;
+      line-height: 1.5;
+    }
+    .card-rec::before {
+      content: "📌 ";
     }
 
     .card-footer {
@@ -411,6 +454,77 @@
     }
 
     /* ============================================
+       PAPER CARDS GRID
+    ============================================ */
+    .paper-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+
+    .paper-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: transform 150ms var(--ease-spring),
+                  border-color 150ms var(--ease-spring),
+                  box-shadow 150ms var(--ease-spring),
+                  background 150ms var(--ease-spring);
+      cursor: pointer;
+    }
+    .paper-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-hover);
+      box-shadow: 0 0 0 1px var(--border-hover), 0 8px 32px rgba(0,0,0,0.4), 0 0 20px var(--glow);
+      background: var(--bg-3);
+    }
+    .paper-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.45;
+      transition: color 150ms;
+    }
+    .paper-card:hover .paper-title {
+      color: var(--accent);
+    }
+    .paper-summary {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+    .paper-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    .paper-meta-item {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .paper-upvotes {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green);
+      background: rgba(86, 211, 100, 0.1);
+      padding: 2px 7px;
+      border-radius: 100px;
+      border: 1px solid rgba(86, 211, 100, 0.2);
+    }
+
+    /* ============================================
        SCROLLBAR
     ============================================ */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -425,8 +539,15 @@
       .repo-grid {
         grid-template-columns: 1fr;
       }
+      .paper-grid {
+        grid-template-columns: 1fr;
+      }
       .container { padding: 0 16px; }
       main { padding: 32px 0 48px; }
+      .section-desc { flex-wrap: wrap; }
+      .card-title { font-size: 14px; word-break: break-word; }
+      .card-desc { font-size: 13px; }
+      pre, code { max-width: 100%; overflow-x: auto; }
     }
   </style>
 </head>
@@ -437,12 +558,16 @@
     <div class="header-inner">
       <div class="brand">
         <span class="brand-title">⚡ AI 日报</span>
-        <span class="brand-issue">Issue #1</span>
+        <span class="brand-issue">第 1 期</span>
       </div>
       <div class="header-date">
         <div class="date-main">2026年04月10日</div>
-        <div class="date-weekday">周五</div>
+        <div class="date-weekday">星期五</div>
       </div>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link active">日报</a>
+        <a href="workshop.html" class="nav-link">内容工坊</a>
+      </nav>
     </div>
     
   </div>
@@ -450,6 +575,259 @@
 
 <main>
   <div class="container">
+
+    
+  <section class="section">
+    <div class="section-header">
+      <div class="section-title">
+        <span class="section-icon">📰</span>
+        <h2>MarkTechPost</h2>
+        <span class="section-badge">8</span>
+      </div>
+      <span class="section-sub">MarkTechPost · AI 资讯</span>
+    </div>
+    <div class="section-desc">
+      <span class="section-type-tag tag-news">📢 行业资讯</span>
+      <span class="section-desc-text">面向工程师和研究者的 AI 技术媒体，解读最新模型发布、研究突破和工具动态</span>
+    </div>
+    <div class="paper-grid">
+      
+    <a class="paper-card" href="https://www.marktechpost.com/2026/04/09/five-ai-compute-architectures-every-engineer-should-know-cpus-gpus-tpus-npus-and-lpus-compared/" target="_blank" rel="noopener">
+      <div class="paper-title">每位工程师都应了解的五种AI计算架构：CPU、GPU、TPU、NPU与LPU对比</div>
+      <p class="paper-summary">现代AI不再由单一类型的处理器驱动——它运行在多样化的专用计算架构生态系统上，每种架构都经过深思熟虑的设计</p>
+      <p class="card-rec">清晰对比五种AI计算架构的适用场景，工程师选型必读，助你避免为错误硬件付出高昂代价。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">📅 2026-04-10</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://www.marktechpost.com/2026/04/09/an-end-to-end-coding-guide-to-nvidia-kvpress-for-long-context-llm-inference-kv-cache-compression-and-memory-efficient-generation/" target="_blank" rel="noopener">
+      <div class="paper-title">NVIDIA KVPress长上下文LLM推理、KV缓存压缩与内存高效生成的端到端编程指南</div>
+      <p class="paper-summary">在本教程中，我们采用详细且实用的方式探索NVIDIA的KVPress，了解它如何使长上下文语言模型推理更加高效</p>
+      <p class="card-rec">KVPress长上下文推理实战指南，对需要处理超长文档的LLM工程师而言，是降低内存成本的实用参考。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">📅 2026-04-10</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://www.marktechpost.com/2026/04/09/meta-superintelligence-lab-releases-muse-spark-a-multimodal-reasoning-model-with-thought-compression-and-parallel-agents/" target="_blank" rel="noopener">
+      <div class="paper-title">Meta超级智能实验室发布Muse Spark：一款具备思维压缩与并行智能体的多模态推理模型</div>
+      <p class="paper-summary">Meta超级智能实验室近期发布了"Muse Spark"——Muse系列的首款模型，此举意义重大。Muse Spark是</p>
+      <p class="card-rec">Meta Muse Spark引入思维压缩与并行智能体，可能重塑多模态推理范式，业界应高度关注其后续进展。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">📅 2026-04-09</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://www.marktechpost.com/2026/04/09/sigmoid-vs-relu-activation-functions-the-inference-cost-of-losing-geometric-context/" target="_blank" rel="noopener">
+      <div class="paper-title">Sigmoid与ReLU激活函数：丢失几何上下文的推理代价</div>
+      <p class="paper-summary">深度神经网络可以被理解为一个几何系统，其中每一层对输入空间进行重塑，以形成日益复杂的决策边界</p>
+      <p class="card-rec">从几何视角重新审视Sigmoid与ReLU的推理代价，为深度理解激活函数选择提供新思路，研究者值得细读。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">📅 2026-04-09</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://www.marktechpost.com/2026/04/08/a-coding-guide-to-build-advanced-document-intelligence-pipelines-with-google-langextract-openai-models-structured-extraction-and-interactive-visualization/" target="_blank" rel="noopener">
+      <div class="paper-title">使用Google LangExtract、OpenAI模型、结构化提取与交互式可视化构建高级文档智能流水线的编程指南</div>
+      <p class="paper-summary">在本教程中，我们探索如何使用Google的LangExtract库将非结构化文本转化为结构化、机器可读的信息</p>
+      <p class="card-rec">结合LangExtract与OpenAI模型构建文档智能流水线，对需要批量结构化信息提取的工程师极具实操价值。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">📅 2026-04-09</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://www.marktechpost.com/2026/04/08/google-ai-research-introduces-paperorchestra-a-multi-agent-framework-for-automated-ai-research-paper-writing/" target="_blank" rel="noopener">
+      <div class="paper-title">Google AI研究推出PaperOrchestra：一个用于自动化AI研究论文写作的多智能体框架</div>
+      <p class="paper-summary">撰写一篇研究论文是件苦差事。即便实验完成后，研究人员仍需花费数周时间，将杂乱的实验记录、零散的结果</p>
+      <p class="card-rec">PaperOrchestra用多智能体框架自动化论文写作，可能大幅压缩研究者写作周期，学术从业者值得密切关注。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">📅 2026-04-09</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://www.marktechpost.com/2026/04/08/a-comprehensive-implementation-guide-to-modelscope-for-model-search-inference-fine-tuning-evaluation-and-export/" target="_blank" rel="noopener">
+      <div class="paper-title">ModelScope模型搜索、推理、微调、评估与导出的全面实现指南</div>
+      <p class="paper-summary">在本教程中，我们通过一个可在Colab上流畅运行的实用端到端工作流来探索ModelScope。我们从环境搭建开始</p>
+      <p class="card-rec">ModelScope全流程实战指南覆盖推理到导出，适合希望快速上手国产模型生态的开发者，实用性强。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">📅 2026-04-08</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://www.marktechpost.com/2026/04/08/meet-osgym-a-new-os-infrastructure-framework-that-manages-1000-replicas-at-0-23-day-for-computer-use-agent-research/" target="_blank" rel="noopener">
+      <div class="paper-title">认识OSGym：一个以每天0.23美元管理1000+副本的新型操作系统基础框架，专为计算机使用智能体研究而设计</div>
+      <p class="paper-summary">训练真正能够使用计算机的AI智能体——打开应用、点击按钮、浏览网页、编写代码——是最艰难的基础设施挑战之一</p>
+      <p class="card-rec">OSGym以极低成本管理千级并行副本，可能成为计算机使用智能体研究的基础设施标准，值得深度关注。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">📅 2026-04-08</span>
+      </div>
+    </a>
+    </div>
+  </section>
+
+    
+
+    
+  <section class="section">
+    <div class="section-header">
+      <div class="section-title">
+        <span class="section-icon">🤗</span>
+        <h2>Hugging Face Daily Papers</h2>
+        <span class="section-badge">5</span>
+      </div>
+      <span class="section-sub">HuggingFace · 今日精选</span>
+    </div>
+    <div class="section-desc">
+      <span class="section-type-tag tag-paper">📑 学术论文</span>
+      <span class="section-desc-text">HuggingFace 社区每日精选的 AI 论文，由研究者投票推荐，代表当天最受关注的研究方向</span>
+    </div>
+    <div class="paper-grid">
+      
+    <a class="paper-card" href="https://huggingface.co/papers/2604.08377" target="_blank" rel="noopener">
+      <div class="paper-title">SkillClaw：让技能通过智能体进化器集体演化</div>
+      <p class="card-rec">通过智能体进化器让技能集体演化，对构建自适应AI系统的研究者具有较强的探索价值。</p>
+      <div class="paper-meta">
+        
+        
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://huggingface.co/papers/2604.08364" target="_blank" rel="noopener">
+      <div class="paper-title">MegaStyle：通过一致性文本到图像风格映射构建多样化且可扩展的风格数据集</div>
+      <p class="card-rec">MegaStyle构建大规模风格数据集，为图像风格化研究提供可扩展的数据基础，视觉生成领域值得关注。</p>
+      <div class="paper-meta">
+        
+        
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://huggingface.co/papers/2604.08523" target="_blank" rel="noopener">
+      <div class="paper-title">ClawBench：AI智能体能否完成日常在线任务？</div>
+      <p class="card-rec">系统评估AI智能体完成日常在线任务的能力，为智能体实用化程度提供客观参照，开发者和研究者均应参考。</p>
+      <div class="paper-meta">
+        
+        
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://huggingface.co/papers/2604.08455" target="_blank" rel="noopener">
+      <div class="paper-title">KnowU-Bench：面向交互式、主动式与个性化移动智能体评估</div>
+      <p class="card-rec">专为移动场景设计的交互式、主动式智能体评估基准，对移动AI应用开发者有直接的参考价值。</p>
+      <div class="paper-meta">
+        
+        
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://huggingface.co/papers/2604.08546" target="_blank" rel="noopener">
+      <div class="paper-title">当数字开口说话：在文本到视频扩散模型中对齐文本数字与视觉实例</div>
+      <p class="card-rec">解决文本到视频中数字对齐难题，针对生成模型的顽固痛点，视频生成研究者值得深入研读。</p>
+      <div class="paper-meta">
+        
+        
+      </div>
+    </a>
+    </div>
+  </section>
+
+    
+  <section class="section">
+    <div class="section-header">
+      <div class="section-title">
+        <span class="section-icon">📄</span>
+        <h2>arXiv cs.AI</h2>
+        <span class="section-badge">8</span>
+      </div>
+      <span class="section-sub">arXiv · 最新论文</span>
+    </div>
+    <div class="section-desc">
+      <span class="section-type-tag tag-paper">📑 学术论文</span>
+      <span class="section-desc-text">arXiv 人工智能方向最新预印本论文，未经同行评审，代表学界最前沿的研究进展</span>
+    </div>
+    <div class="paper-grid">
+      
+    <a class="paper-card" href="https://arxiv.org/abs/2604.08545" target="_blank" rel="noopener">
+      <div class="paper-title">明智行动：在智能体多模态模型中培养元认知工具使用能力</div>
+      <p class="paper-summary">智能体多模态模型的出现使系统能够主动与外部环境交互。然而，当前的智能体存在一个问题</p>
+      <p class="card-rec">提出元认知工具使用能力，可能从根本上改善智能体"滥用工具"的顽疾，AI研究者值得关注。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">👤 Shilin Yan, Jintao Tong, Hongwei Xue</span>
+        <span class="paper-meta-item">📅 2026-04-09</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://arxiv.org/abs/2604.08544" target="_blank" rel="noopener">
+      <div class="paper-title">SIM1：物理对齐模拟器作为可变形世界中的零样本数据扩展器</div>
+      <p class="paper-summary">可变形物体的机器人操作是具身学习中的数据密集型领域，其中形状、接触和拓扑结构共同演化</p>
+      <p class="card-rec">用物理模拟器作为零样本数据扩展器，可能大幅降低可变形物体机器人操作的数据成本，具身AI领域值得重视。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">👤 Yunsong Zhou, Hangxu Liu, Xuekun Jiang</span>
+        <span class="paper-meta-item">📅 2026-04-09</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://arxiv.org/abs/2604.08541" target="_blank" rel="noopener">
+      <div class="paper-title">看而不思：多模态专家混合模型中的路由干扰问题</div>
+      <p class="paper-summary">多模态专家混合（MoE）模型在视觉-语言任务上取得了卓越性能。然而，我们发现了一个令人困惑的现象</p>
+      <p class="card-rec">发现多模态MoE模型中路由干扰问题，揭示视觉信息可能被忽视的深层缺陷，对模型优化有重要指导意义。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">👤 Haolei Xu, Haiwen Hong, Hongxing Li</span>
+        <span class="paper-meta-item">📅 2026-04-09</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://arxiv.org/abs/2604.08540" target="_blank" rel="noopener">
+      <div class="paper-title">AVGen-Bench：用于文本到音视频生成多粒度评估的任务驱动基准</div>
+      <p class="paper-summary">文本到音视频（T2AV）生成正迅速成为媒体创作的核心接口，但其评估体系仍较为分散。现有基准</p>
+      <p class="card-rec">首个专为文本到音视频生成设计的多粒度评估基准，填补评估体系空白，多模态生成研究者应重点参考。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">👤 Ziwei Zhou, Zeyuan Lai, Rui Wang</span>
+        <span class="paper-meta-item">📅 2026-04-09</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://arxiv.org/abs/2604.08539" target="_blank" rel="noopener">
+      <div class="paper-title">OpenVLThinkerV2：面向多领域视觉任务的通用多模态推理模型</div>
+      <p class="paper-summary">组相对策略优化（GRPO）已成为驱动多模态领域近期进展的事实标准强化学习（RL）目标</p>
+      <p class="card-rec">OpenVLThinkerV2将GRPO强化学习扩展至多领域视觉推理，通用性值得关注，是多模态推理模型的重要进展。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">👤 Wenbo Hu, Xin Chen, Yan Gao-Tian</span>
+        <span class="paper-meta-item">📅 2026-04-09</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://arxiv.org/abs/2604.08536" target="_blank" rel="noopener">
+      <div class="paper-title">RewardFlow：通过优化奖励目标生成图像</div>
+      <p class="paper-summary">我们介绍RewardFlow，一种无需反演的框架，在推理时通过多重奖励引导预训练扩散模型和流匹配模型</p>
+      <p class="card-rec">RewardFlow无需反演即可通过多重奖励引导图像生成，实用性强，图像生成研究者和产品方均值得关注。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">👤 Onkar Susladkar, Dong-Hwan Jang, Tushar Prakash</span>
+        <span class="paper-meta-item">📅 2026-04-09</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://arxiv.org/abs/2604.08529" target="_blank" rel="noopener">
+      <div class="paper-title">PSI：共享状态作为个人AI智能体中连贯AI生成工具的缺失层</div>
+      <p class="paper-summary">个人AI工具现在可以根据自然语言请求生成，但创建后往往处于孤立状态。我们提出PSI，一种共享状态架构</p>
+      <p class="card-rec">PSI提出共享状态架构解决AI工具孤岛问题，可能成为个人AI智能体系统设计的关键缺失层。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">👤 Zhiyuan Wang, Erzhen Hu, Mark Rucker</span>
+        <span class="paper-meta-item">📅 2026-04-09</span>
+      </div>
+    </a>
+
+    <a class="paper-card" href="https://arxiv.org/abs/2604.08525" target="_blank" rel="noopener">
+      <div class="paper-title">AI聊天机器人中的广告？大型语言模型如何应对利益冲突的分析</div>
+      <p class="paper-summary">当今的大型语言模型（LLM）通过强化学习等方法进行训练以与用户偏好对齐。然而，模型开始</p>
+      <p class="card-rec">揭示大模型在广告利益冲突下的行为偏差，对AI可信度研究和商业化场景的风险评估具有警示价值。</p>
+      <div class="paper-meta">
+        <span class="paper-meta-item">👤 Addison J. Wu, Ryan Liu, Shuyue Stella Li</span>
+        <span class="paper-meta-item">📅 2026-04-09</span>
+      </div>
+    </a>
+    </div>
+  </section>
 
     <!-- GitHub Trending Section -->
     <section class="section">
@@ -459,7 +837,11 @@
           <h2>GitHub Trending</h2>
           <span class="section-badge">12</span>
         </div>
-        <span class="section-sub">每日精选 · Top 12</span>
+        <span class="section-sub">每日精选 · Top 12 项目</span>
+      </div>
+      <div class="section-desc">
+        <span class="section-type-tag tag-tool">🛠 开源工具 / 框架</span>
+        <span class="section-desc-text">今日 GitHub 上 Star 增速最快的开源项目，涵盖模型、框架、工程工具等</span>
       </div>
       <div class="repo-grid">
         
@@ -471,7 +853,8 @@
           <span class="repo">markitdown</span>
         </span>
       </div>
-      <p class="card-desc">Python tool for converting files and office documents to Markdown.</p>
+      <p class="card-desc">用于将文件和办公文档转换为 Markdown 的 Python 工具。</p>
+      <p class="card-rec">文档工程师必备，批量将各类办公文件转为Markdown，大幅提升AI处理文档的效率，实用性极强。</p>
       <div class="card-footer">
         
         <span class="lang-tag">
@@ -482,7 +865,7 @@
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
             <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
           </svg>
-          98.0k
+          98.4k
         </span>
         <span class="forks">⑂ 6.0k</span>
         <span class="stars-today">▲ 今日 +2.4k</span>
@@ -497,7 +880,8 @@
           <span class="repo">Archon</span>
         </span>
       </div>
-      <p class="card-desc">The first open-source harness builder for AI coding. Make AI coding deterministic and repeatable.</p>
+      <p class="card-desc">首个面向 AI 编程的开源测试框架构建工具。让 AI 编程变得确定性且可重复。</p>
+      <p class="card-rec">AI编程领域值得关注的突破，首个让AI生成代码可验证、可重复的开源测试框架，开发者不容错过。</p>
       <div class="card-footer">
         
         <span class="lang-tag">
@@ -508,7 +892,7 @@
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
             <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
           </svg>
-          14.8k
+          15.0k
         </span>
         <span class="forks">⑂ 2.5k</span>
         <span class="stars-today">▲ 今日 +756</span>
@@ -523,7 +907,8 @@
           <span class="repo">hermes-agent</span>
         </span>
       </div>
-      <p class="card-desc">The agent that grows with you</p>
+      <p class="card-desc">随你成长的智能体</p>
+      <p class="card-rec">随用户需求动态进化的智能体，对希望AI助手越用越顺手的用户有较高吸引力。</p>
       <div class="card-footer">
         
         <span class="lang-tag">
@@ -534,9 +919,9 @@
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
             <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
           </svg>
-          49.3k
+          50.1k
         </span>
-        <span class="forks">⑂ 6.3k</span>
+        <span class="forks">⑂ 6.4k</span>
         <span class="stars-today">▲ 今日 +7.7k</span>
       </div>
     </a>
@@ -549,7 +934,8 @@
           <span class="repo">rowboat</span>
         </span>
       </div>
-      <p class="card-desc">Open-source AI coworker, with memory</p>
+      <p class="card-desc">具备记忆功能的开源 AI 协作伙伴</p>
+      <p class="card-rec">具备记忆的开源AI伙伴，适合需要长期上下文协作的开发者，可能改变人机协作方式。</p>
       <div class="card-footer">
         
         <span class="lang-tag">
@@ -560,7 +946,7 @@
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
             <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
           </svg>
-          11.4k
+          11.5k
         </span>
         <span class="forks">⑂ 1.1k</span>
         <span class="stars-today">▲ 今日 +1.2k</span>
@@ -575,7 +961,8 @@
           <span class="repo">multica</span>
         </span>
       </div>
-      <p class="card-desc">The open-source managed agents platform. Turn coding agents into real teammates — assign tasks, track progress, compound skills.</p>
+      <p class="card-desc">开源托管智能体平台。将编程智能体转化为真正的团队成员——分配任务、跟踪进度、积累技能。</p>
+      <p class="card-rec">将AI编程智能体纳入真实团队工作流的平台，对管理复杂软件项目的团队具有明显实用价值。</p>
       <div class="card-footer">
         
         <span class="lang-tag">
@@ -586,9 +973,9 @@
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
             <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
           </svg>
-          5.2k
+          5.4k
         </span>
-        <span class="forks">⑂ 636</span>
+        <span class="forks">⑂ 655</span>
         <span class="stars-today">▲ 今日 +1.7k</span>
       </div>
     </a>
@@ -601,16 +988,17 @@
           <span class="repo">andrej-karpathy-skills</span>
         </span>
       </div>
-      <p class="card-desc">A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls.</p>
+      <p class="card-desc">一个用于改善 Claude Code 行为的 CLAUDE.md 文件，源自 Andrej Karpathy 对大语言模型编程陷阱的观察总结。</p>
+      <p class="card-rec">源自Karpathy实战洞察的Claude Code配置文件，能直接减少AI编程踩坑，工程师应立即收藏。</p>
       <div class="card-footer">
         
         <span class="stars">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
             <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
           </svg>
-          11.2k
+          11.3k
         </span>
-        <span class="forks">⑂ 743</span>
+        <span class="forks">⑂ 751</span>
         <span class="stars-today">▲ 今日 +1.5k</span>
       </div>
     </a>
@@ -623,7 +1011,8 @@
           <span class="repo">Kronos</span>
         </span>
       </div>
-      <p class="card-desc">Kronos: A Foundation Model for the Language of Financial Markets</p>
+      <p class="card-desc">Kronos：金融市场语言基础模型</p>
+      <p class="card-rec">专为金融市场设计的语言基础模型，值得量化从业者和金融科技开发者重点关注。</p>
       <div class="card-footer">
         
         <span class="lang-tag">
@@ -649,7 +1038,8 @@
           <span class="repo">DeepTutor</span>
         </span>
       </div>
-      <p class="card-desc">"DeepTutor: Agent-Native Personalized Learning Assistant"</p>
+      <p class="card-desc">DeepTutor：原生智能体个性化学习助手</p>
+      <p class="card-rec">具备个性化能力的AI学习助手，对自适应教育场景有实际价值，教育科技领域应密切跟进。</p>
       <div class="card-footer">
         
         <span class="lang-tag">
@@ -675,7 +1065,8 @@
           <span class="repo">opendataloader-pdf</span>
         </span>
       </div>
-      <p class="card-desc">PDF Parser for AI-ready data. Automate PDF accessibility. Open-source.</p>
+      <p class="card-desc">面向 AI 就绪数据的 PDF 解析器。自动化 PDF 无障碍处理。开源。</p>
+      <p class="card-rec">开源PDF解析器专攻AI就绪数据，自动化无障碍处理，文档处理工程师的高效工具。</p>
       <div class="card-footer">
         
         <span class="lang-tag">
@@ -686,7 +1077,7 @@
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
             <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
           </svg>
-          14.4k
+          14.5k
         </span>
         <span class="forks">⑂ 1.2k</span>
         <span class="stars-today">▲ 今日 +1.3k</span>
@@ -701,7 +1092,8 @@
           <span class="repo">superpowers</span>
         </span>
       </div>
-      <p class="card-desc">An agentic skills framework & software development methodology that works.</p>
+      <p class="card-desc">一个切实可行的智能体技能框架与软件开发方法论。</p>
+      <p class="card-rec">系统性的智能体技能框架与开发方法论，为构建生产级AI智能体的团队提供可落地的方法论参考。</p>
       <div class="card-footer">
         
         <span class="lang-tag">
@@ -712,7 +1104,7 @@
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
             <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
           </svg>
-          144.9k
+          145.2k
         </span>
         <span class="forks">⑂ 12.4k</span>
         <span class="stars-today">▲ 今日 +2.1k</span>
@@ -727,7 +1119,8 @@
           <span class="repo">jq</span>
         </span>
       </div>
-      <p class="card-desc">Command-line JSON processor</p>
+      <p class="card-desc">命令行 JSON 处理器</p>
+      <p class="card-rec">经典命令行JSON处理神器，数据工程师日常必备，与AI工具链结合使用效率倍增。</p>
       <div class="card-footer">
         
         <span class="lang-tag">
@@ -738,7 +1131,7 @@
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
             <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
           </svg>
-          34.1k
+          34.2k
         </span>
         <span class="forks">⑂ 1.8k</span>
         <span class="stars-today">▲ 今日 +48</span>
@@ -753,7 +1146,8 @@
           <span class="repo">claude-code-best-practice</span>
         </span>
       </div>
-      <p class="card-desc">practice made claude perfect</p>
+      <p class="card-desc">熟能生巧，练就完美的 Claude</p>
+      <p class="card-rec">通过反复练习优化Claude行为，适合希望深度调教AI助手的开发者，值得尝试。</p>
       <div class="card-footer">
         
         <span class="lang-tag">
@@ -764,7 +1158,7 @@
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
             <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
           </svg>
-          35.0k
+          35.2k
         </span>
         <span class="forks">⑂ 3.3k</span>
         <span class="stars-today">▲ 今日 +1.2k</span>
@@ -773,15 +1167,13 @@
       </div>
     </section>
 
-    
-
   </div>
 </main>
 
 <footer class="site-footer">
   <div class="container">
     <div class="footer-inner">
-      <span class="footer-gen">生成于 2026-04-10 21:51:10</span>
+      <span class="footer-gen">生成于 2026-04-11 00:56:53</span>
       <span class="footer-brand">⚡ AI 日报 — 由 OpenClaw 驱动</span>
     </div>
   </div>
