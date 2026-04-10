@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Daily — 2026-04-10</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================
+       DESIGN TOKENS
+    ============================================ */
+    :root {
+      --bg: #0f0f0f;
+      --bg-2: #161616;
+      --bg-3: #1c1c1c;
+      --bg-4: #242424;
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.18);
+      --glow: rgba(99, 179, 237, 0.15);
+      --text-primary: #f0ede8;
+      --text-secondary: #a09a92;
+      --text-tertiary: #635e58;
+      --accent: #63b3ed;
+      --accent-dim: rgba(99,179,237,0.12);
+      --green: #56d364;
+      --yellow: #e3b341;
+      --purple: #bc8cff;
+      --font: 'Geist', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-xs: 6px;
+    }
+
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================================
+       LAYOUT
+    ============================================ */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ============================================
+       HEADER
+    ============================================ */
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      padding: 32px 0 24px;
+      position: sticky;
+      top: 0;
+      background: rgba(15,15,15,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 100;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .brand-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #f0ede8 0%, #a09a92 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .brand-issue {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      font-weight: 400;
+    }
+    .header-date {
+      text-align: right;
+    }
+    .date-main {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .date-weekday {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    /* Archive bar */
+    .archive-bar {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .arch-label {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 500;
+      margin-right: 4px;
+    }
+    .arch-link {
+      font-size: 12px;
+      color: var(--text-secondary);
+      padding: 3px 8px;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      transition: all 150ms var(--ease-spring);
+    }
+    .arch-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .arch-current {
+      font-size: 12px;
+      color: var(--accent);
+      padding: 3px 8px;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* ============================================
+       MAIN CONTENT
+    ============================================ */
+    main {
+      padding: 48px 0 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    /* ============================================
+       SECTION
+    ============================================ */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-icon {
+      font-size: 20px;
+      line-height: 1;
+    }
+    .section-title h2 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+    .section-badge {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 100px;
+    }
+    .section-sub {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* ============================================
+       GITHUB CARDS GRID
+    ============================================ */
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    .repo-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: transform 150ms var(--ease-spring),
+                  border-color 150ms var(--ease-spring),
+                  box-shadow 150ms var(--ease-spring),
+                  background 150ms var(--ease-spring);
+      cursor: pointer;
+    }
+    .repo-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-hover);
+      box-shadow: 0 0 0 1px var(--border-hover), 0 8px 32px rgba(0,0,0,0.4), 0 0 20px var(--glow);
+      background: var(--bg-3);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .rank {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-tertiary);
+      min-width: 28px;
+      font-variant-numeric: tabular-nums;
+    }
+    .repo-name {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .owner {
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+    .sep {
+      color: var(--text-tertiary);
+      margin: 0 1px;
+    }
+    .repo {
+      color: var(--text-primary);
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    .lang-tag {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .lang-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .stars {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+    .star-icon {
+      color: var(--yellow);
+      flex-shrink: 0;
+    }
+    .forks {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .stars-today {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green);
+      background: rgba(86, 211, 100, 0.1);
+      padding: 2px 7px;
+      border-radius: 100px;
+      border: 1px solid rgba(86, 211, 100, 0.2);
+      margin-left: auto;
+    }
+
+    /* ============================================
+       CITADEL LIST
+    ============================================ */
+    .citadel-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .citadel-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      transition: background 150ms var(--ease-spring);
+      cursor: pointer;
+    }
+    .citadel-item:last-child {
+      border-bottom: none;
+    }
+    .citadel-item:hover {
+      background: var(--bg-3);
+    }
+    .ci-rank {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-tertiary);
+      min-width: 24px;
+      font-variant-numeric: tabular-nums;
+    }
+    .ci-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .ci-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      transition: color 150ms;
+    }
+    .citadel-item:hover .ci-title {
+      color: var(--accent);
+    }
+    .ci-meta {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .ci-arrow {
+      color: var(--text-tertiary);
+      flex-shrink: 0;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 150ms var(--ease-spring), transform 150ms var(--ease-spring);
+    }
+    .citadel-item:hover .ci-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0 32px;
+      text-align: center;
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+    .footer-gen {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .footer-brand {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* ============================================
+       SCROLLBAR
+    ============================================ */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--bg-4); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 768px) {
+      .repo-grid {
+        grid-template-columns: 1fr;
+      }
+      .container { padding: 0 16px; }
+      main { padding: 32px 0 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-title">⚡ AI Daily</span>
+        <span class="brand-issue">Issue #1</span>
+      </div>
+      <div class="header-date">
+        <div class="date-main">April 10, 2026</div>
+        <div class="date-weekday">Friday</div>
+      </div>
+    </div>
+    
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <!-- GitHub Trending Section -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title">
+          <span class="section-icon">🔥</span>
+          <h2>GitHub Trending</h2>
+          <span class="section-badge">12</span>
+        </div>
+        <span class="section-sub">Daily · Top 12</span>
+      </div>
+      <div class="repo-grid">
+        
+    <a class="repo-card" href="https://github.com/microsoft/markitdown" target="_blank" rel="noopener">
+      <div class="card-header">
+        <span class="rank">#1</span>
+        <span class="repo-name">
+          <span class="owner">microsoft</span><span class="sep">/</span>
+          <span class="repo">markitdown</span>
+        </span>
+      </div>
+      <p class="card-desc">Python tool for converting files and office documents to Markdown.</p>
+      <div class="card-footer">
+        
+        <span class="lang-tag">
+          <span class="lang-dot" style="background:#3572A5"></span>
+          Python
+        </span>
+        <span class="stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          98.0k
+        </span>
+        <span class="forks">⑂ 6.0k</span>
+        <span class="stars-today">▲ 2.4k today</span>
+      </div>
+    </a>
+
+    <a class="repo-card" href="https://github.com/coleam00/Archon" target="_blank" rel="noopener">
+      <div class="card-header">
+        <span class="rank">#2</span>
+        <span class="repo-name">
+          <span class="owner">coleam00</span><span class="sep">/</span>
+          <span class="repo">Archon</span>
+        </span>
+      </div>
+      <p class="card-desc">The first open-source harness builder for AI coding. Make AI coding deterministic and repeatable.</p>
+      <div class="card-footer">
+        
+        <span class="lang-tag">
+          <span class="lang-dot" style="background:#3178c6"></span>
+          TypeScript
+        </span>
+        <span class="stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          14.8k
+        </span>
+        <span class="forks">⑂ 2.5k</span>
+        <span class="stars-today">▲ 756 today</span>
+      </div>
+    </a>
+
+    <a class="repo-card" href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">
+      <div class="card-header">
+        <span class="rank">#3</span>
+        <span class="repo-name">
+          <span class="owner">NousResearch</span><span class="sep">/</span>
+          <span class="repo">hermes-agent</span>
+        </span>
+      </div>
+      <p class="card-desc">The agent that grows with you</p>
+      <div class="card-footer">
+        
+        <span class="lang-tag">
+          <span class="lang-dot" style="background:#3572A5"></span>
+          Python
+        </span>
+        <span class="stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          49.3k
+        </span>
+        <span class="forks">⑂ 6.3k</span>
+        <span class="stars-today">▲ 7.7k today</span>
+      </div>
+    </a>
+
+    <a class="repo-card" href="https://github.com/rowboatlabs/rowboat" target="_blank" rel="noopener">
+      <div class="card-header">
+        <span class="rank">#4</span>
+        <span class="repo-name">
+          <span class="owner">rowboatlabs</span><span class="sep">/</span>
+          <span class="repo">rowboat</span>
+        </span>
+      </div>
+      <p class="card-desc">Open-source AI coworker, with memory</p>
+      <div class="card-footer">
+        
+        <span class="lang-tag">
+          <span class="lang-dot" style="background:#3178c6"></span>
+          TypeScript
+        </span>
+        <span class="stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          11.4k
+        </span>
+        <span class="forks">⑂ 1.1k</span>
+        <span class="stars-today">▲ 1.2k today</span>
+      </div>
+    </a>
+
+    <a class="repo-card" href="https://github.com/multica-ai/multica" target="_blank" rel="noopener">
+      <div class="card-header">
+        <span class="rank">#5</span>
+        <span class="repo-name">
+          <span class="owner">multica-ai</span><span class="sep">/</span>
+          <span class="repo">multica</span>
+        </span>
+      </div>
+      <p class="card-desc">The open-source managed agents platform. Turn coding agents into real teammates — assign tasks, track progress, compound skills.</p>
+      <div class="card-footer">
+        
+        <span class="lang-tag">
+          <span class="lang-dot" style="background:#3178c6"></span>
+          TypeScript
+        </span>
+        <span class="stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          5.2k
+        </span>
+        <span class="forks">⑂ 636</span>
+        <span class="stars-today">▲ 1.7k today</span>
+      </div>
+    </a>
+
+    <a class="repo-card" href="https://github.com/forrestchang/andrej-karpathy-skills" target="_blank" rel="noopener">
+      <div class="card-header">
+        <span class="rank">#6</span>
+        <span class="repo-name">
+          <span class="owner">forrestchang</span><span class="sep">/</span>
+          <span class="repo">andrej-karpathy-skills</span>
+        </span>
+      </div>
+      <p class="card-desc">A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls.</p>
+      <div class="card-footer">
+        
+        <span class="stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          11.2k
+        </span>
+        <span class="forks">⑂ 743</span>
+        <span class="stars-today">▲ 1.5k today</span>
+      </div>
+    </a>
+
+    <a class="repo-card" href="https://github.com/shiyu-coder/Kronos" target="_blank" rel="noopener">
+      <div class="card-header">
+        <span class="rank">#7</span>
+        <span class="repo-name">
+          <span class="owner">shiyu-coder</span><span class="sep">/</span>
+          <span class="repo">Kronos</span>
+        </span>
+      </div>
+      <p class="card-desc">Kronos: A Foundation Model for the Language of Financial Markets</p>
+      <div class="card-footer">
+        
+        <span class="lang-tag">
+          <span class="lang-dot" style="background:#3572A5"></span>
+          Python
+        </span>
+        <span class="stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          12.5k
+        </span>
+        <span class="forks">⑂ 2.5k</span>
+        <span class="stars-today">▲ 602 today</span>
+      </div>
+    </a>
+
+    <a class="repo-card" href="https://github.com/HKUDS/DeepTutor" target="_blank" rel="noopener">
+      <div class="card-header">
+        <span class="rank">#8</span>
+        <span class="repo-name">
+          <span class="owner">HKUDS</span><span class="sep">/</span>
+          <span class="repo">DeepTutor</span>
+        </span>
+      </div>
+      <p class="card-desc">"DeepTutor: Agent-Native Personalized Learning Assistant"</p>
+      <div class="card-footer">
+        
+        <span class="lang-tag">
+          <span class="lang-dot" style="background:#3572A5"></span>
+          Python
+        </span>
+        <span class="stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          15.6k
+        </span>
+        <span class="forks">⑂ 2.1k</span>
+        <span class="stars-today">▲ 1.4k today</span>
+      </div>
+    </a>
+
+    <a class="repo-card" href="https://github.com/opendataloader-project/opendataloader-pdf" target="_blank" rel="noopener">
+      <div class="card-header">
+        <span class="rank">#9</span>
+        <span class="repo-name">
+          <span class="owner">opendataloader-project</span><span class="sep">/</span>
+          <span class="repo">opendataloader-pdf</span>
+        </span>
+      </div>
+      <p class="card-desc">PDF Parser for AI-ready data. Automate PDF accessibility. Open-source.</p>
+      <div class="card-footer">
+        
+        <span class="lang-tag">
+          <span class="lang-dot" style="background:#b07219"></span>
+          Java
+        </span>
+        <span class="stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          14.4k
+        </span>
+        <span class="forks">⑂ 1.2k</span>
+        <span class="stars-today">▲ 1.3k today</span>
+      </div>
+    </a>
+
+    <a class="repo-card" href="https://github.com/obra/superpowers" target="_blank" rel="noopener">
+      <div class="card-header">
+        <span class="rank">#10</span>
+        <span class="repo-name">
+          <span class="owner">obra</span><span class="sep">/</span>
+          <span class="repo">superpowers</span>
+        </span>
+      </div>
+      <p class="card-desc">An agentic skills framework & software development methodology that works.</p>
+      <div class="card-footer">
+        
+        <span class="lang-tag">
+          <span class="lang-dot" style="background:#89e051"></span>
+          Shell
+        </span>
+        <span class="stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          144.9k
+        </span>
+        <span class="forks">⑂ 12.4k</span>
+        <span class="stars-today">▲ 2.1k today</span>
+      </div>
+    </a>
+
+    <a class="repo-card" href="https://github.com/jqlang/jq" target="_blank" rel="noopener">
+      <div class="card-header">
+        <span class="rank">#11</span>
+        <span class="repo-name">
+          <span class="owner">jqlang</span><span class="sep">/</span>
+          <span class="repo">jq</span>
+        </span>
+      </div>
+      <p class="card-desc">Command-line JSON processor</p>
+      <div class="card-footer">
+        
+        <span class="lang-tag">
+          <span class="lang-dot" style="background:#555555"></span>
+          C
+        </span>
+        <span class="stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          34.1k
+        </span>
+        <span class="forks">⑂ 1.8k</span>
+        <span class="stars-today">▲ 48 today</span>
+      </div>
+    </a>
+
+    <a class="repo-card" href="https://github.com/shanraisshan/claude-code-best-practice" target="_blank" rel="noopener">
+      <div class="card-header">
+        <span class="rank">#12</span>
+        <span class="repo-name">
+          <span class="owner">shanraisshan</span><span class="sep">/</span>
+          <span class="repo">claude-code-best-practice</span>
+        </span>
+      </div>
+      <p class="card-desc">practice made claude perfect</p>
+      <div class="card-footer">
+        
+        <span class="lang-tag">
+          <span class="lang-dot" style="background:#e34c26"></span>
+          HTML
+        </span>
+        <span class="stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="star-icon">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          35.0k
+        </span>
+        <span class="forks">⑂ 3.3k</span>
+        <span class="stars-today">▲ 1.2k today</span>
+      </div>
+    </a>
+      </div>
+    </section>
+
+    
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-gen">Generated at 2026-04-10 20:27:57</span>
+      <span class="footer-brand">⚡ AI Daily — Powered by OpenClaw</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
