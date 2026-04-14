@@ -4,111 +4,722 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>内容工坊 — AI 日报</title>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root{--bg:#0f0f0f;--bg-2:#161616;--bg-3:#1c1c1c;--bg-4:#242424;--border:rgba(255,255,255,0.07);--text-primary:#f0ede8;--text-secondary:#a09a92;--text-tertiary:#635e58;--accent:#63b3ed;--accent-dim:rgba(99,179,237,0.12);--green:#56d364;--yellow:#e3b341;--purple:#bc8cff;--font:'Geist',-apple-system,BlinkMacSystemFont,sans-serif;--r:12px;--rs:8px;--rx:6px}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{font-size:16px;overflow-x:hidden}
-    body{font-family:var(--font);background:var(--bg);color:var(--text-primary);line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    a{color:inherit;text-decoration:none}
-    .container{max-width:1280px;width:100%;margin:0 auto;padding:0 24px}
-    .site-header{border-bottom:1px solid var(--border);padding:20px 0;position:sticky;top:0;background:rgba(15,15,15,0.88);backdrop-filter:blur(20px);z-index:100}
-    .header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand-title{font-size:20px;font-weight:700;background:linear-gradient(135deg,#f0ede8,#a09a92);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .header-nav{display:flex;gap:4px}
-    .nav-link{font-size:13px;color:var(--text-secondary);padding:6px 12px;border-radius:var(--rx);transition:all 150ms}
-    .nav-link:hover{color:var(--text-primary);background:var(--bg-3)}
-    .nav-link.active{color:var(--accent);background:var(--accent-dim)}
-    .workshop-layout{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 65px)}
-    .case-panel{background:var(--bg-2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
-    .case-panel-header{padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-    .case-panel-title{font-size:14px;font-weight:600}
-    .case-count-badge{font-size:11px;color:var(--text-tertiary);background:var(--bg-3);border:1px solid var(--border);padding:2px 7px;border-radius:100px}
-    .case-list{flex:1;overflow-y:auto;padding:8px}
-    .case-item{padding:12px 14px;border-radius:var(--rs);cursor:pointer;transition:background 150ms;border:1px solid transparent;margin-bottom:4px}
-    .case-item:hover{background:var(--bg-3)}
-    .case-item.active{background:var(--accent-dim);border-color:rgba(99,179,237,0.25)}
-    .case-item-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-    .case-item.active .case-item-title{color:var(--accent)}
-    .case-item-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-    .case-date{font-size:11px;color:var(--text-tertiary)}
-    .case-status{font-size:10px;font-weight:600;padding:2px 7px;border-radius:100px}
-    .status-draft{background:rgba(227,179,65,0.15);color:var(--yellow);border:1px solid rgba(227,179,65,0.3)}
-    .status-published{background:rgba(86,211,100,0.12);color:var(--green);border:1px solid rgba(86,211,100,0.25)}
-    .case-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
-    .case-tag{font-size:10px;color:var(--text-tertiary);background:var(--bg-4);border:1px solid var(--border);padding:1px 6px;border-radius:4px}
-    .preview-panel{display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
-    .preview-panel-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg-2);flex-shrink:0}
-    .preview-case-title{font-size:16px;font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .preview-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
-    .btn-publish{padding:7px 14px;font-family:var(--font);font-size:12px;font-weight:500;border-radius:var(--rx);cursor:pointer;border:none;background:linear-gradient(135deg,#56d364,#43c25b);color:#0f0f0f;transition:all 150ms}
-    .btn-publish:hover{transform:translateY(-1px)}
-    .preview-content{flex:1;overflow-y:auto;padding:32px 24px;display:flex;gap:32px;align-items:flex-start}
-    .case-meta-panel{width:260px;flex-shrink:0}
-    .meta-section{background:var(--bg-2);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px}
-    .meta-section-title{font-size:11px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px}
-    .meta-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;font-size:12px}
-    .meta-row:last-child{margin-bottom:0}
-    .meta-label{color:var(--text-tertiary);flex-shrink:0;width:52px}
-    .meta-value{color:var(--text-secondary);flex:1;line-height:1.5}
-    .highlight-box{background:var(--bg-3);border-left:2px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 12px;margin-bottom:8px;font-size:12px;color:var(--text-secondary);line-height:1.55}
-    .highlight-box:last-child{margin-bottom:0}
-    .ai-badge{display:inline-flex;align-items:center;font-size:11px;font-weight:500;padding:3px 8px;border-radius:6px;margin:0 4px 4px 0}
-    .badge-yuanbao{background:rgba(227,179,65,0.15);color:var(--yellow);border:1px solid rgba(227,179,65,0.3)}
-    .badge-doubao{background:rgba(188,140,255,0.15);color:#bc8cff;border:1px solid rgba(188,140,255,0.3)}
-    .asset-row{font-size:12px;color:var(--text-secondary);padding:8px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:flex-start}
-    .asset-row:last-child{border-bottom:none;padding-bottom:0}
-    .asset-label{color:var(--accent);flex-shrink:0;font-size:11px;font-weight:600;min-width:80px}
-    .xhs-wrapper{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center}
-    .xhs-label{font-size:11px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:6px}
-    .xhs-label::before,.xhs-label::after{content:"";flex:1;height:1px;background:var(--border);max-width:60px}
-    .xhs-phone-frame{width:100%;max-width:390px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
-    .xhs-status-bar{background:#fff;padding:12px 20px 4px;display:flex;justify-content:space-between;align-items:center}
-    .xhs-time{font-size:13px;font-weight:700;color:#1a1a1a}
-    .xhs-status-icons{display:flex;gap:6px;font-size:12px}
-    .xhs-top-nav{background:#fff;padding:8px 16px 12px;display:flex;align-items:center;gap:12px}
-    .xhs-back-btn{width:28px;height:28px;border-radius:50%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:14px;color:#333;flex-shrink:0}
-    .xhs-nav-tabs{display:flex;gap:16px;flex:1;justify-content:center}
-    .xhs-tab{font-size:14px;color:#999}
-    .xhs-tab.active{font-size:16px;font-weight:700;color:#1a1a1a}
-    .xhs-more-btn{width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#333;flex-shrink:0}
-    .xhs-image-area{width:100%;aspect-ratio:3/4;background:#eee;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-    .xhs-image-area img{width:100%;height:100%;object-fit:cover;display:block}
-    .xhs-image-placeholder{text-align:center;color:rgba(255,255,255,0.7)}
-    .xhs-image-placeholder .img-icon{font-size:40px;display:block;margin-bottom:8px}
-    .xhs-image-placeholder .img-text{font-size:12px}
-    .xhs-image-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:5px}
-    .xhs-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.4)}
-    .xhs-dot.active{width:16px;border-radius:3px;background:#fff}
-    .xhs-content-area{background:#fff;padding:16px 16px 0}
-    .xhs-user-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-    .xhs-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ff6b9d,#ffb347);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
-    .xhs-username{font-size:13px;font-weight:600;color:#1a1a1a;flex:1}
-    .xhs-follow-btn{font-size:12px;color:#ff2442;border:1px solid #ff2442;padding:4px 12px;border-radius:20px;font-weight:500}
-    .xhs-post-title{font-size:15px;font-weight:700;color:#1a1a1a;line-height:1.45;margin-bottom:10px}
-    .xhs-post-body{font-size:13px;color:#333;line-height:1.7;margin-bottom:12px;white-space:pre-wrap}
-    .xhs-post-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-    .xhs-tag{font-size:12px;color:#3d8bff}
-    .xhs-action-bar{background:#fff;border-top:1px solid #f0f0f0;padding:12px 16px 20px;display:flex;align-items:center;gap:4px}
-    .xhs-action{display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:20px;font-size:13px;color:#666}
-    .xhs-action-icon{font-size:16px}
-    .xhs-action-count{font-size:12px;color:#999}
-    .xhs-comment-input{flex:1;margin-left:8px;background:#f5f5f5;border-radius:20px;padding:7px 14px;font-size:12px;color:#999}
-    .empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--text-tertiary);padding:60px 24px}
-    .empty-state-icon{font-size:48px;opacity:0.4}
-    .empty-state-text{font-size:14px}
-    ::-webkit-scrollbar{width:5px;height:5px}
-    ::-webkit-scrollbar-track{background:var(--bg)}
-    ::-webkit-scrollbar-thumb{background:var(--bg-4);border-radius:3px}
-    @media(max-width:900px){.preview-content{flex-direction:column;align-items:center}.case-meta-panel{width:100%;max-width:420px}}
-    @media(max-width:700px){.workshop-layout{grid-template-columns:1fr;grid-template-rows:auto 1fr}.case-panel{border-right:none;border-bottom:1px solid var(--border);max-height:260px}.container{padding:0 16px}}
+    /* ============================================
+       DESIGN TOKENS
+    ============================================ */
+    :root {
+      --bg: #0f0f0f;
+      --bg-2: #161616;
+      --bg-3: #1c1c1c;
+      --bg-4: #242424;
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.18);
+      --glow: rgba(99, 179, 237, 0.15);
+      --text-primary: #f0ede8;
+      --text-secondary: #a09a92;
+      --text-tertiary: #635e58;
+      --accent: #63b3ed;
+      --accent-dim: rgba(99,179,237,0.12);
+      --green: #56d364;
+      --yellow: #e3b341;
+      --purple: #bc8cff;
+      --pink: #ff6b9d;
+      --font: 'Geist', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-xs: 6px;
+    }
+
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================================
+       LAYOUT
+    ============================================ */
+    .container {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 24px;
+      box-sizing: border-box;
+    }
+
+    /* ============================================
+       HEADER
+    ============================================ */
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      background: rgba(15,15,15,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 100;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .brand-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #f0ede8 0%, #a09a92 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-link {
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: var(--radius-xs);
+      transition: all 150ms var(--ease-spring);
+    }
+    .nav-link:hover {
+      color: var(--text-primary);
+      background: var(--bg-3);
+    }
+    .nav-link.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* ============================================
+       WORKSHOP LAYOUT
+    ============================================ */
+    .workshop-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 0;
+      min-height: calc(100vh - 65px);
+    }
+
+    /* ============================================
+       LEFT PANEL - CASE LIST
+    ============================================ */
+    .case-panel {
+      background: var(--bg-2);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .case-panel-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .case-panel-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .case-count-badge {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 100px;
+    }
+    .case-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px;
+    }
+    .case-item {
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 150ms var(--ease-spring);
+      border: 1px solid transparent;
+      margin-bottom: 4px;
+    }
+    .case-item:hover {
+      background: var(--bg-3);
+    }
+    .case-item.active {
+      background: var(--accent-dim);
+      border-color: rgba(99,179,237,0.25);
+    }
+    .case-item-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .case-item.active .case-item-title {
+      color: var(--accent);
+    }
+    .case-item-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .case-date {
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+    .case-status {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 100px;
+      letter-spacing: 0.04em;
+    }
+    .status-draft {
+      background: rgba(227,179,65,0.15);
+      color: var(--yellow);
+      border: 1px solid rgba(227,179,65,0.3);
+    }
+    .status-published {
+      background: rgba(86,211,100,0.12);
+      color: var(--green);
+      border: 1px solid rgba(86,211,100,0.25);
+    }
+    .case-tags {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .case-tag {
+      font-size: 10px;
+      color: var(--text-tertiary);
+      background: var(--bg-4);
+      border: 1px solid var(--border);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .case-panel-footer {
+      padding: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .btn-new-case {
+      width: 100%;
+      padding: 10px 16px;
+      background: transparent;
+      border: 1px dashed rgba(99,179,237,0.4);
+      color: var(--accent);
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 150ms var(--ease-spring);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-new-case:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* ============================================
+       RIGHT PANEL - PREVIEW
+    ============================================ */
+    .preview-panel {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .preview-panel-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-2);
+      flex-shrink: 0;
+    }
+    .preview-case-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .preview-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .btn-action {
+      padding: 7px 14px;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: var(--radius-xs);
+      cursor: pointer;
+      transition: all 150ms var(--ease-spring);
+      border: none;
+    }
+    .btn-edit {
+      background: var(--bg-3);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .btn-edit:hover {
+      background: var(--bg-4);
+      color: var(--text-primary);
+    }
+    .btn-publish {
+      background: linear-gradient(135deg, #56d364, #43c25b);
+      color: #0f0f0f;
+    }
+    .btn-publish:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(86,211,100,0.3);
+    }
+
+    /* ============================================
+       PREVIEW CONTENT AREA
+    ============================================ */
+    .preview-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px 24px;
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    /* ============================================
+       XIAOHONGSHU CARD
+    ============================================ */
+    .xhs-wrapper {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .xhs-label {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .xhs-label::before,
+    .xhs-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 60px;
+    }
+    .xhs-phone-frame {
+      width: 100%;
+      max-width: 390px;
+      background: #fff;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    /* XHS Status Bar */
+    .xhs-status-bar {
+      background: #fff;
+      padding: 12px 20px 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .xhs-time {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a1a1a;
+      font-variant-numeric: tabular-nums;
+    }
+    .xhs-status-icons {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .xhs-status-icons span {
+      font-size: 12px;
+    }
+    /* XHS Top Nav */
+    .xhs-top-nav {
+      background: #fff;
+      padding: 8px 16px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .xhs-back-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #333;
+      flex-shrink: 0;
+    }
+    .xhs-nav-tabs {
+      display: flex;
+      gap: 16px;
+      flex: 1;
+      justify-content: center;
+    }
+    .xhs-tab {
+      font-size: 14px;
+      color: #999;
+      cursor: pointer;
+    }
+    .xhs-tab.active {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    .xhs-more-btn {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #333;
+      flex-shrink: 0;
+    }
+    /* XHS Image Area */
+    .xhs-image-area {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f64f59 100%);
+      width: 100%;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .xhs-image-placeholder {
+      text-align: center;
+      color: rgba(255,255,255,0.7);
+    }
+    .xhs-image-placeholder .img-icon {
+      font-size: 40px;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .xhs-image-placeholder .img-text {
+      font-size: 12px;
+    }
+    .xhs-image-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 5px;
+    }
+    .xhs-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+    }
+    .xhs-dot.active {
+      width: 16px;
+      border-radius: 3px;
+      background: #fff;
+    }
+    /* XHS Content */
+    .xhs-content-area {
+      background: #fff;
+      padding: 16px 16px 0;
+    }
+    .xhs-user-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .xhs-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff6b9d, #ffb347);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+      font-weight: 700;
+      color: #fff;
+    }
+    .xhs-username {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a1a1a;
+      flex: 1;
+    }
+    .xhs-follow-btn {
+      font-size: 12px;
+      color: #ff2442;
+      border: 1px solid #ff2442;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .xhs-post-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+    .xhs-post-body {
+      font-size: 13px;
+      color: #333;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .xhs-post-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .xhs-tag {
+      font-size: 12px;
+      color: #3d8bff;
+      cursor: pointer;
+    }
+    /* XHS Action Bar */
+    .xhs-action-bar {
+      background: #fff;
+      border-top: 1px solid #f0f0f0;
+      padding: 12px 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .xhs-action {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: #666;
+      cursor: pointer;
+    }
+    .xhs-action:hover {
+      background: #f5f5f5;
+    }
+    .xhs-action-icon {
+      font-size: 16px;
+    }
+    .xhs-action-count {
+      font-size: 12px;
+      color: #999;
+    }
+    .xhs-comment-input {
+      flex: 1;
+      margin-left: 8px;
+      background: #f5f5f5;
+      border-radius: 20px;
+      padding: 7px 14px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* ============================================
+       DATA REFERENCE PANEL
+    ============================================ */
+    .data-ref-panel {
+      width: 280px;
+      flex-shrink: 0;
+    }
+    .data-ref-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .data-ref-title-icon {
+      font-size: 16px;
+    }
+    .data-ref-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .data-ref-item {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      transition: background 150ms;
+      cursor: pointer;
+    }
+    .data-ref-item:last-child {
+      border-bottom: none;
+    }
+    .data-ref-item:hover {
+      background: var(--bg-3);
+    }
+    .data-ref-platform {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 5px;
+    }
+    .data-ref-item-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.45;
+      margin-bottom: 8px;
+    }
+    .data-ref-stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .data-stat {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+    .data-stat-icon {
+      font-size: 12px;
+    }
+    .data-stat-num {
+      font-variant-numeric: tabular-nums;
+      font-weight: 500;
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 16px 0;
+      text-align: center;
+      background: var(--bg-2);
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: center;
+    }
+    .footer-gen {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* ============================================
+       SCROLLBAR
+    ============================================ */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--bg-4); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 900px) {
+      .preview-content {
+        flex-direction: column;
+        align-items: center;
+      }
+      .data-ref-panel {
+        width: 100%;
+        max-width: 420px;
+      }
+    }
+    @media (max-width: 700px) {
+      .workshop-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+      }
+      .case-panel {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        max-height: 260px;
+      }
+      .preview-panel {
+        min-height: 500px;
+      }
+      .container { padding: 0 16px; }
+    }
   </style>
 </head>
 <body>
+
+<!-- HEADER -->
 <header class="site-header">
   <div class="container">
     <div class="header-inner">
-      <span class="brand-title">⚡ AI 日报</span>
+      <div class="brand">
+        <span class="brand-title">⚡ AI 日报</span>
+      </div>
       <nav class="header-nav">
         <a href="index.html" class="nav-link">日报</a>
         <a href="workshop.html" class="nav-link active">内容工坊</a>
@@ -116,33 +727,128 @@
     </div>
   </div>
 </header>
+
+<!-- WORKSHOP LAYOUT -->
 <div class="workshop-layout">
+
+  <!-- LEFT: CASE LIST -->
   <aside class="case-panel">
     <div class="case-panel-header">
       <span class="case-panel-title">我的案例</span>
-      <span class="case-count-badge" id="caseCountBadge">0</span>
+      <span class="case-count-badge" id="caseCountBadge">1</span>
     </div>
-    <div class="case-list" id="caseList"></div>
+    <div class="case-list" id="caseList">
+      <!-- Rendered by JS -->
+    </div>
+    <div class="case-panel-footer">
+      <button class="btn-new-case" onclick="handleNewCase()">
+        <span>＋</span>
+        <span>新建案例</span>
+      </button>
+    </div>
   </aside>
+
+  <!-- RIGHT: PREVIEW -->
   <div class="preview-panel">
     <div class="preview-panel-header">
-      <h1 class="preview-case-title" id="previewTitle">选择一个案例</h1>
+      <h1 class="preview-case-title" id="previewTitle">选择一个案例开始预览</h1>
       <div class="preview-actions">
-        <button class="btn-publish" id="btnPublish" onclick="markPublished()" style="display:none">✅ 标记已发布</button>
+        <button class="btn-action btn-edit" onclick="handleEdit()">✏️ 编辑</button>
+        <button class="btn-action btn-publish" onclick="handlePublish()">🚀 发布</button>
       </div>
     </div>
-    <div class="preview-content" id="previewContent">
-      <div class="empty-state"><div class="empty-state-icon">✍️</div><div class="empty-state-text">从左侧选择一个案例</div></div>
+    <div class="preview-content">
+      <!-- XHS Card -->
+      <div class="xhs-wrapper">
+        <div class="xhs-label">小红书预览</div>
+        <div class="xhs-phone-frame">
+          <!-- Status Bar -->
+          <div class="xhs-status-bar">
+            <span class="xhs-time">9:41</span>
+            <div class="xhs-status-icons">
+              <span>📶</span>
+              <span>🔋</span>
+            </div>
+          </div>
+          <!-- Top Nav -->
+          <div class="xhs-top-nav">
+            <div class="xhs-back-btn">←</div>
+            <div class="xhs-nav-tabs">
+              <span class="xhs-tab">关注</span>
+              <span class="xhs-tab active">正文</span>
+              <span class="xhs-tab">评论 99+</span>
+            </div>
+            <div class="xhs-more-btn">···</div>
+          </div>
+          <!-- Image -->
+          <div class="xhs-image-area">
+            <div class="xhs-image-placeholder">
+              <span class="img-icon">🏔</span>
+              <span class="img-text">封面图</span>
+            </div>
+            <div class="xhs-image-dots">
+              <div class="xhs-dot active"></div>
+              <div class="xhs-dot"></div>
+              <div class="xhs-dot"></div>
+            </div>
+          </div>
+          <!-- Content -->
+          <div class="xhs-content-area">
+            <div class="xhs-user-row">
+              <div class="xhs-avatar">差</div>
+              <span class="xhs-username">差点是美女</span>
+              <div class="xhs-follow-btn">关注</div>
+            </div>
+            <div class="xhs-post-title" id="xhsTitle">带3岁娃+65岁老人重庆4天，AI帮我做了全程攻略</div>
+            <div class="xhs-post-body" id="xhsBody">
+              宝贝大大3岁4个月，这次带着他和外公外婆一起去重庆玩了4天…<br><br>
+              一开始我真的超级焦虑：带娃+带老人，要考虑的事太多了。但这次我用AI做了全程规划，效果真的超出预期！✨<br><br>
+              📍洪崖洞的灯光很美，但人太多，建议下午4点就去排队<br>
+              🚇 轨道交通2号线穿楼而过，大大看了说"火车要飞起来啦！"哈哈哈<br>
+              🍜 小面必吃！老人和宝宝都可以吃不辣版
+            </div>
+            <div class="xhs-post-tags" id="xhsTags">
+              <span class="xhs-tag">#亲子旅游</span>
+              <span class="xhs-tag">#AI工具</span>
+              <span class="xhs-tag">#重庆</span>
+            </div>
+          </div>
+          <!-- Action Bar -->
+          <div class="xhs-action-bar">
+            <div class="xhs-action">
+              <span class="xhs-action-icon">❤️</span>
+              <span class="xhs-action-count">2.1k</span>
+            </div>
+            <div class="xhs-action">
+              <span class="xhs-action-icon">⭐</span>
+              <span class="xhs-action-count">891</span>
+            </div>
+            <div class="xhs-comment-input">说点什么…</div>
+            <div class="xhs-action">
+              <span class="xhs-action-icon">↪️</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Reference -->
+      <div class="data-ref-panel">
+        <div class="data-ref-title">
+          <span>📊 相关热点数据</span>
+        </div>
+        <div class="data-ref-list">
+          <div class="data-ref-item"><span class="data-ref-platform xhs">小红书</span><span class="data-ref-ttl">带娃重庆4天3夜攻略</span><span class="data-ref-stats">❤️ 2341 · ⭐ 891</span></div>
+          <div class="data-ref-item"><span class="data-ref-platform xhs">小红书</span><span class="data-ref-ttl">重庆亲子游必打卡轨道交通</span><span class="data-ref-stats">❤️ 1823 · ⭐ 654</span></div>
+          <div class="data-ref-item"><span class="data-ref-platform zhihu">知乎</span><span class="data-ref-ttl">带老人和孩子去重庆旅游注意什么</span><span class="data-ref-stats">👍 456 · 💬 89</span></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<script>
-const CASES=[{id:"hongluosi-2026-0411",title:"红螺寺亲子攻略｜3岁轨道迷的快乐天花板",date:"2026-04-11",status:"draft",tags:["带娃","轨道迷","北京周边","亲子"],destination:"北京怀柔·红螺寺",duration:"半日游",travelers:"大聪明 + 大大（3岁4个月）",ai_tools:[],highlights:["管式轨道往返（成人100/娃50），上山全程目不转睛盯着轨道，下山速度巨快娃嗷嗷叫","⚠️ 买往返！单程80/40，下山才是精华，步行下山是自己的损失","娃小需和大人同坐，无明显身高限制，建议1岁以上","轨道终点上方还有中天门（再爬30分钟），带娃带老人不建议登顶，轨道往返已值回票价","寺内全程有山泉流水声，水景贯穿始终，随时可以玩水","出寺乌龟池，娃蹲下去就不想走了，留点时间","粉色寿桃雕塑进去站着拍，娃张开双臂出片率极高","寺外围墙三角梅现在盛开，整面粉红色花墙","餐厅「山下」民宿餐厅，出寺步行可达，不是农家乐，环境很舒服，人均约40元","🅿️ 停车：3号可能满，直接去2号，正对大门反而更近","实测：欢乐谷出发约2小时（京承高速堵），11点到寺，2点半返程"],no_pitfalls:true,ai_verdict:"轨道迷娃北京周边首选，下山比上山刺激10倍，娃嗷嗷叫",photos:[{label:"📸 封面（推荐）",desc:"大大仰头坐管式轨道，管子延伸进树林，第一人称视角",src:"assets/hongluosi/luodao-cover.jpg"},{label:"📸 红螺寺正门",desc:"大大在红螺寺牌坊前张开双臂，彩绘牌楼+蓝天",src:"assets/hongluosi/gate.jpg"},{label:"📸 粉色寿桃",desc:"大大在粉色寿桃雕塑里张开双臂，满脸笑容",src:"assets/hongluosi/shoutao.jpg"},{label:"📸 三角梅花墙",desc:"大大踮脚够三角梅，整面粉红色花墙背景",src:"assets/hongluosi/bougainvillea.jpg"},{label:"📸 喂锦鲤",desc:"小桥上喂鱼，红鲤鱼密密麻麻，古典建筑背景",src:""}],ai_assets:[],xhs:{title:"红螺寺｜3岁轨道迷的快乐天花板，全程无障碍亲子攻略✅",body:"从北京欢乐谷出发，今天实测全程复盘，照着走不踩坑👇\n\n🚗 出行\n欢乐谷出发，走京承高速，路上约2小时。京承高速是堵点，建议早出发，周六人多，我们11点到已经不算早了。\n\n🅿️ 停车\n门口有2号和3号停车场。3号我到的时候已满被引导去2号——其实2号更好，就在大门正对面，反而更近。不用执着3号。\n\n🎟️ 门票\n成人54元｜老人（60-64岁）27元｜65岁以上免费\n娃：1.2米以下或6岁以下免票\n\n🚃 核心玩法：管式轨道（必买往返！）\n票价：成人往返100元/单程80元，娃往返50元/单程40元\n一上车就全程无视我，盯着轨道兴奋得不说话，跟他说话也不理我。\n⚠️ 必买往返！下山比上山刺激10倍，速度贼快，娃高兴得嗷嗷叫。步行下山是自己的损失。\n娃小的话需要和大人坐一起，无明显身高限制，建议1岁以上。\n💡 AI避坑：轨道终点上方还有中天门，再爬约30分钟才能到顶。带娃带老人不建议，出发前问了元宝才知道，直接跳过，轨道往返已经值回票价。\n\n💧 寺内全程有水\n山泉流水声贯穿整个游览路线，随时有小溪小水潭，娃可以玩水。不要只盯着轨道，水景也是亮点。\n\n🐢 出寺彩蛋：乌龟池\n出了寺门往停车场走，路过一个小乌龟池，娃蹲下去就不想走了。留够时间。\n\n🌸 随手打卡\n寺外围墙三角梅现在正盛，整面粉红色花墙，娃踮脚够花很好出片。粉色寿桃雕塑可以进去站着拍，孩子张开手的瞬间出片率极高。跟着人群走就行，几乎没台阶，适合低幼。\n\n🍽️ 饭后推荐：山下餐厅（人均约40元）\n出寺后找了家叫「山下」的民宿餐厅，不是普通农家乐，环境很舒服，单点菜品，2大1小共130元。适合带娃吃完歇一歇再开车，吃完2点半返程，娃在车里直接睡着了。\n\n📍 时间参考\n出发越早越好｜京承高速易堵\n实测：欢乐谷出发2小时→11点入寺→2点半返程，寺内约3.5小时\n半日游足够，节奏不赶。\n\n我是大大妈，一个拥抱AI的大厂社畜。",tags:["#红螺寺攻略","#北京周末亲子","#怀柔亲子游","#北京遛娃","#轨道迷","#3岁宝宝","#带娃出行","#亲子打卡"]}},{id:"chongqing-2026-0328",title:"重庆3天2晚亲子游",date:"2026-03-28",status:"draft",tags:["带娃","带老人","亲子","火车迷"],destination:"重庆",duration:"3天2晚",travelers:"大聪明 + 大大（3岁4个月）+ 63岁姥姥",ai_tools:["元宝（DeepSeek快速思考）","豆包"],highlights:["元宝识别出三倒拐正在装修封闭，主动提示去不了，避免踩坑","豆包直接生成彩色行程卡图片，追加竖版高清图一键输出","元宝推荐不进洪崖洞，大桥上看全景省爬11楼","白象居只走平层，适合带老人带娃","老人走不动备选：湖广会馆喝茶看江景"],no_pitfalls:true,ai_verdict:"多AI交叉验证才靠谱——元宝擅长实时信息，豆包擅长视觉化输出",photos:[{label:"📸 封面（推荐）",desc:"大大坐推车+姥姥红衣，李子坝彩色壁画+轻轨穿楼背景，雨天",src:"assets/chongqing/liziba-cover.jpg"},{label:"📸 长寿缆车",desc:"大大在长寿缆车站门口，仰头大笑，手持玩具",src:"assets/chongqing/changshou-cable.jpg"}],ai_assets:[{label:"🤖 元宝对话截图",desc:"第一步：把条件+小红书链接一起喂给元宝",src:"assets/chongqing/yuanbao-prompt.jpg"},{label:"🤖 豆包行程卡",desc:"豆包生成竖版高清彩色行程卡，周六/周日/周三三天",src:"assets/chongqing/doubao-itinerary.jpg"}],xhs:{title:"清明带娃去重庆，AI半小时搞定攻略，全程0踩坑",body:"清明前想错峰带娃去旅游。娃是重度火车轨道迷，我想了很久觉得重庆很适合。于是想要做一份旅游攻略。\n\n问题是娃睡着才有时间，那会儿一般已经晚上11点了。白天上班已经够耗，坐下来还要翻攻略、对比景点、惦记着姥姥的腿、想着娃的脾气，光想想这个过程就已经不想做了。\n\n没想到用AI半小时就搞定了三天两夜的重庆攻略，剩下的时间还能去刷手机。全程没踩一个坑，大大和姥姥都玩得很开心。\n\n靠的是把AI用对了。下面说我怎么做的。\n\n第一步：把条件和信息源都给AI\n\n不是直接问\"帮我规划重庆3天\"。我先在小红书搜了几篇重庆亲子攻略，把链接直接丢给AI，让它先消化这些真实内容。然后再告诉它我的限制：娃3岁，轨道迷，火车地铁缆车都要看到；姥姥63岁，不能爬太多楼梯；北京出发，3天2晚，节奏不要太赶。AI基于真实攻略做整合，比让它凭空生成靠谱多了。\n\n第二步：逐条反问\n\nAI出方案之后，我不直接信，会追问：这两个景点距离多远？中间要爬楼梯吗？你这个信息的依据是什么？最后一句最重要。AI能说清楚来源的，相对靠谱。答得含糊的，就自己再查一下。\n\n第三步：换个AI多问一嘴\n\n豆包先出了一版，还直接生成了竖版行程图，时间节点交通方式都有，很好用。行程差不多定了，我随手把同样的问题扔给元宝问了一遍，没抱什么期待，就是多问一嘴。\n\n就这一嘴：元宝告诉我三倒拐正在装修封闭，去不了。豆包没提。如果没有多问这一下，就带着娃和姥姥走过去，发现封闭再原路折回。\n\n两个AI我都不完全信，这次只是多问了一步，碰巧捡了个大漏。\n\nAI省不了你带娃的力气，但能省掉你规划的时间，还能帮你把坑提前挖出来。\n\nAI不能帮你带娃，但真的可以帮你省掉很多时间，尽量把你从琐碎的事情中释放出来。我是大大妈，一个拥抱AI的大厂社畜。",tags:["#AI旅行攻略","#带娃旅行","#重庆亲子游","#旅行规划","#元宝vs豆包","#亲子旅行","#重庆旅游攻略","#带娃避坑"]}}];
-let activeId=null;
-function renderList(){const list=document.getElementById('caseList');document.getElementById('caseCountBadge').textContent=CASES.length;list.innerHTML=CASES.map(c=>`<div class="case-item ${activeId===c.id?'active':''}" onclick="selectCase('${c.id}')"><div class="case-item-title">${c.title}</div><div class="case-item-meta"><span class="case-date">${c.date}</span><span class="case-status ${c.status==='published'?'status-published':'status-draft'}">${c.status==='published'?'已发布':'草稿'}</span></div><div class="case-tags">${c.tags.map(t=>`<span class="case-tag">${t}</span>`).join('')}</div></div>`).join('')}
-function selectCase(id){activeId=id;renderList();const c=CASES.find(x=>x.id===id);if(!c)return;document.getElementById('previewTitle').textContent=c.title;document.getElementById('btnPublish').style.display=c.status==='draft'?'block':'none';const aiBadges=c.ai_tools.map(t=>`<span class="ai-badge ${t.includes('元宝')?'badge-yuanbao':t.includes('豆包')?'badge-doubao':''}">${t}</span>`).join('');const hlHtml=c.highlights.map(h=>`<div class="highlight-box">${h}</div>`).join('');const photosHtml=c.photos.map(p=>`<div class="asset-row">${p.src?`<img src="${p.src}" style="width:64px;height:64px;object-fit:cover;border-radius:6px;flex-shrink:0;margin-right:8px" />`:''}<div><div style="color:var(--accent);font-size:11px;font-weight:600;margin-bottom:2px">${p.label}</div><span style="font-size:12px;color:var(--text-secondary)">${p.desc}</span></div></div>`).join('');const assetsHtml=c.ai_assets.map(a=>`<div class="asset-row">${a.src?`<img src="${a.src}" style="width:64px;height:64px;object-fit:cover;border-radius:6px;flex-shrink:0;margin-right:8px" />`:''}<div><div style="color:var(--accent);font-size:11px;font-weight:600;margin-bottom:2px">${a.label}</div><span style="font-size:12px;color:var(--text-secondary)">${a.desc}</span></div></div>`).join('');document.getElementById('previewContent').innerHTML=`<div class="case-meta-panel"><div class="meta-section"><div class="meta-section-title">基本信息</div><div class="meta-row"><span class="meta-label">目的地</span><span class="meta-value">${c.destination}</span></div><div class="meta-row"><span class="meta-label">行程</span><span class="meta-value">${c.duration}</span></div><div class="meta-row"><span class="meta-label">出行人</span><span class="meta-value">${c.travelers}</span></div><div class="meta-row"><span class="meta-label">AI工具</span><span class="meta-value">${aiBadges}</span></div><div class="meta-row"><span class="meta-label">踩坑</span><span class="meta-value">${c.no_pitfalls?'✅ 0踩坑':'❗ 有坑'}</span></div><div class="meta-row"><span class="meta-label">结论</span><span class="meta-value">${c.ai_verdict}</span></div></div><div class="meta-section"><div class="meta-section-title">AI亮点</div>${hlHtml}</div><div class="meta-section"><div class="meta-section-title">现场照片</div>${photosHtml}</div><div class="meta-section"><div class="meta-section-title">AI截图素材</div>${assetsHtml}</div></div><div class="xhs-wrapper"><div class="xhs-label">小红书预览</div><div class="xhs-phone-frame"><div class="xhs-status-bar"><span class="xhs-time">9:41</span><div class="xhs-status-icons"><span>📶</span><span>🔋</span></div></div><div class="xhs-top-nav"><div class="xhs-back-btn">←</div><div class="xhs-nav-tabs"><span class="xhs-tab">关注</span><span class="xhs-tab active">正文</span><span class="xhs-tab">评论</span></div><div class="xhs-more-btn">···</div></div><div class="xhs-image-area"><img src="assets/chongqing/liziba-cover.jpg" alt="封面" /><div class="xhs-image-dots"><div class="xhs-dot active"></div><div class="xhs-dot"></div><div class="xhs-dot"></div></div></div><div class="xhs-content-area"><div class="xhs-user-row"><div class="xhs-avatar">差</div><span class="xhs-username">差点是美女</span><div class="xhs-follow-btn">关注</div></div><div class="xhs-post-title">${c.xhs.title}</div><div class="xhs-post-body">${c.xhs.body}</div><div class="xhs-post-tags">${c.xhs.tags.map(t=>`<span class="xhs-tag">${t}</span>`).join('')}</div></div><div class="xhs-action-bar"><div class="xhs-action"><span class="xhs-action-icon">❤️</span><span class="xhs-action-count">--</span></div><div class="xhs-action"><span class="xhs-action-icon">⭐</span><span class="xhs-action-count">--</span></div><div class="xhs-comment-input">说点什么…</div><div class="xhs-action"><span class="xhs-action-icon">↪️</span></div></div></div></div>`}
-function markPublished(){const c=CASES.find(x=>x.id===activeId);if(c){c.status='published';renderList();selectCase(activeId)}}
-renderList();
-</script>
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-brand">⚡ AI 日报 · 内容工坊 — 由 OpenClaw 驱动</span>
+  </div>
+</footer>
 </body>
 </html>
