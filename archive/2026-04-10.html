@@ -567,6 +567,155 @@
       .card-desc { font-size: 13px; }
       pre, code { max-width: 100%; overflow-x: auto; }
     }
+
+    /* ============================================
+       TAB NAV
+    ============================================ */
+    .tab-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 18px;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 150ms var(--ease-spring);
+      position: relative;
+      bottom: -1px;
+      border-radius: var(--radius-xs) var(--radius-xs) 0 0;
+    }
+    .tab-btn:hover {
+      color: var(--text-primary);
+      background: var(--bg-3);
+    }
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .tab-count {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-tertiary);
+      background: var(--bg-4);
+      border: 1px solid var(--border);
+      padding: 1px 6px;
+      border-radius: 100px;
+    }
+    .tab-btn.active .tab-count {
+      color: var(--accent);
+      border-color: rgba(99,179,237,0.3);
+      background: rgba(99,179,237,0.1);
+    }
+    .tab-pane {
+      display: none;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+
+    /* ============================================
+       COLLAPSIBLE SECTION
+    ============================================ */
+    .collapsible-section {
+      margin-bottom: 16px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 150ms var(--ease-spring);
+    }
+    .collapsible-section:hover {
+      border-color: var(--border-hover);
+    }
+    .coll-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 150ms var(--ease-spring);
+    }
+    .coll-header:hover {
+      background: var(--bg-3);
+    }
+    .coll-header .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .coll-header .section-title h2 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .coll-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .coll-toggle {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      transition: transform 200ms var(--ease-spring);
+      display: inline-block;
+    }
+    .coll-toggle.open {
+      transform: rotate(90deg);
+    }
+    .section-body {
+      padding: 0 20px 20px;
+    }
+    .section-body.collapsed {
+      display: none;
+    }
+
+    /* ============================================
+       PLATFORM TAGS
+    ============================================ */
+    .platform-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 100px;
+      letter-spacing: 0.04em;
+    }
+    .tag-36kr { background: rgba(255,90,50,0.15); color: #ff5a32; border: 1px solid rgba(255,90,50,0.3); }
+    .tag-jiqizhixin { background: rgba(99,179,237,0.15); color: #63b3ed; border: 1px solid rgba(99,179,237,0.3); }
+    .tag-qbitai { background: rgba(188,140,255,0.15); color: #bc8cff; border: 1px solid rgba(188,140,255,0.3); }
+    .tag-bilibili { background: rgba(255,107,175,0.12); color: #ff6baf; border: 1px solid rgba(255,107,175,0.25); }
+    .tag-hot { background: rgba(255,100,50,0.12); color: #ff7040; border: 1px solid rgba(255,100,50,0.25); }
+
+    /* tab-empty placeholder */
+    .tab-empty {
+      color: var(--text-tertiary);
+      font-size: 13px;
+      text-align: center;
+      padding: 48px 0;
+    }
+
+    /* ============================================
+       RESPONSIVE (tab)
+    ============================================ */
+    @media (max-width: 768px) {
+      .tab-btn { padding: 8px 12px; font-size: 13px; }
+      .coll-header { padding: 14px 16px; }
+      .section-body { padding: 0 16px 16px; }
+    }
   </style>
 </head>
 <body>
@@ -598,24 +747,44 @@
 <main>
   <div class="container">
 
-    
+    <!-- Tab Nav -->
+    <nav class="tab-nav" id="tabNav">
+      <button class="tab-btn active" data-tab="hot" onclick="switchTab('hot', this)">
+        🔥 国内热榜 <span class="tab-count">0</span>
+      </button>
+      <button class="tab-btn" data-tab="ai" onclick="switchTab('ai', this)">
+        🤖 AI 资讯 <span class="tab-count">8</span>
+      </button>
+      <button class="tab-btn" data-tab="academic" onclick="switchTab('academic', this)">
+        📚 学术前沿 <span class="tab-count">13</span>
+      </button>
+      <button class="tab-btn" data-tab="dev" onclick="switchTab('dev', this)">
+        💻 开发者 <span class="tab-count">12</span>
+      </button>
+    </nav>
 
-    
-  <section class="section">
-    <div class="section-header">
+    <!-- Tab: 国内热榜 -->
+    <div class="tab-pane active" id="tab-hot">
+      <p class="tab-empty">暂无数据</p>
+    </div>
+
+    <!-- Tab: AI 资讯 -->
+    <div class="tab-pane" id="tab-ai">
+      
+  <div class="collapsible-section" id="sec-marktechpost">
+    <div class="coll-header" onclick="toggleSection('marktechpost')">
       <div class="section-title">
         <span class="section-icon">📰</span>
         <h2>MarkTechPost</h2>
         <span class="section-badge">8</span>
       </div>
-      <span class="section-sub">MarkTechPost · AI 资讯</span>
+      <div class="coll-right">
+        <span class="section-type-tag tag-news">📢 英文</span>
+        <span class="coll-toggle" id="toggle-marktechpost">▶</span>
+      </div>
     </div>
-    <div class="section-desc">
-      <span class="section-type-tag tag-news">📢 行业资讯</span>
-      <span class="section-desc-text">面向工程师和研究者的 AI 技术媒体，解读最新模型发布、研究突破和工具动态</span>
-    </div>
-    <div class="paper-grid">
-      
+    <div class="section-body collapsed" id="body-marktechpost">
+      <div class="paper-grid">
     <a class="paper-card" href="https://www.marktechpost.com/2026/04/09/five-ai-compute-architectures-every-engineer-should-know-cpus-gpus-tpus-npus-and-lpus-compared/" target="_blank" rel="noopener">
       <div class="paper-title">每位工程师都应了解的五种AI计算架构：CPU、GPU、TPU、NPU与LPU对比</div>
       <p class="paper-summary">现代AI不再由单一类型的处理器驱动——它运行在多样化的专用计算架构生态系统上，每种架构都经过深思熟虑的设计</p>
@@ -686,28 +855,28 @@
       <div class="paper-meta">
         <span class="paper-meta-item">📅 2026-04-08</span>
       </div>
-    </a>
+    </a></div>
     </div>
-  </section>
+  </div>
+    </div>
 
-    
-
-    
-  <section class="section">
-    <div class="section-header">
+    <!-- Tab: 学术前沿 -->
+    <div class="tab-pane" id="tab-academic">
+      
+  <div class="collapsible-section" id="sec-hf_papers">
+    <div class="coll-header" onclick="toggleSection('hf_papers')">
       <div class="section-title">
         <span class="section-icon">🤗</span>
         <h2>Hugging Face Daily Papers</h2>
         <span class="section-badge">5</span>
       </div>
-      <span class="section-sub">HuggingFace · 今日精选</span>
+      <div class="coll-right">
+        <span class="section-type-tag tag-paper">📑 论文</span>
+        <span class="coll-toggle" id="toggle-hf_papers">▶</span>
+      </div>
     </div>
-    <div class="section-desc">
-      <span class="section-type-tag tag-paper">📑 学术论文</span>
-      <span class="section-desc-text">HuggingFace 社区每日精选的 AI 论文，由研究者投票推荐，代表当天最受关注的研究方向</span>
-    </div>
-    <div class="paper-grid">
-      
+    <div class="section-body collapsed" id="body-hf_papers">
+      <div class="paper-grid">
     <a class="paper-card" href="https://huggingface.co/papers/2604.08377" target="_blank" rel="noopener">
       <div class="paper-title">SkillClaw：让技能通过智能体进化器集体演化</div>
       <p class="card-rec">通过智能体进化器让技能集体演化，对构建自适应AI系统的研究者具有较强的探索价值。</p>
@@ -751,26 +920,23 @@
         
         
       </div>
-    </a>
+    </a></div>
     </div>
-  </section>
-
-    
-  <section class="section">
-    <div class="section-header">
+  </div>
+  <div class="collapsible-section" id="sec-arxiv">
+    <div class="coll-header" onclick="toggleSection('arxiv')">
       <div class="section-title">
         <span class="section-icon">📄</span>
         <h2>arXiv cs.AI</h2>
         <span class="section-badge">8</span>
       </div>
-      <span class="section-sub">arXiv · 最新论文</span>
+      <div class="coll-right">
+        <span class="section-type-tag tag-paper">📑 预印本</span>
+        <span class="coll-toggle" id="toggle-arxiv">▶</span>
+      </div>
     </div>
-    <div class="section-desc">
-      <span class="section-type-tag tag-paper">📑 学术论文</span>
-      <span class="section-desc-text">arXiv 人工智能方向最新预印本论文，未经同行评审，代表学界最前沿的研究进展</span>
-    </div>
-    <div class="paper-grid">
-      
+    <div class="section-body collapsed" id="body-arxiv">
+      <div class="paper-grid">
     <a class="paper-card" href="https://arxiv.org/abs/2604.08545" target="_blank" rel="noopener">
       <div class="paper-title">明智行动：在智能体多模态模型中培养元认知工具使用能力</div>
       <p class="paper-summary">智能体多模态模型的出现使系统能够主动与外部环境交互。然而，当前的智能体存在一个问题</p>
@@ -849,26 +1015,28 @@
         <span class="paper-meta-item">👤 Addison J. Wu, Ryan Liu, Shuyue Stella Li</span>
         <span class="paper-meta-item">📅 2026-04-09</span>
       </div>
-    </a>
+    </a></div>
     </div>
-  </section>
+  </div>
+    </div>
 
-    <!-- GitHub Trending Section -->
-    <section class="section">
-      <div class="section-header">
-        <div class="section-title">
-          <span class="section-icon">🔥</span>
-          <h2>GitHub Trending</h2>
-          <span class="section-badge">12</span>
-        </div>
-        <span class="section-sub">每日精选 · Top 12 项目</span>
+    <!-- Tab: 开发者 -->
+    <div class="tab-pane" id="tab-dev">
+      
+  <div class="collapsible-section" id="sec-github">
+    <div class="coll-header" onclick="toggleSection('github')">
+      <div class="section-title">
+        <span class="section-icon">🔥</span>
+        <h2>GitHub Trending</h2>
+        <span class="section-badge">12</span>
       </div>
-      <div class="section-desc">
-        <span class="section-type-tag tag-tool">🛠 开源工具 / 框架</span>
-        <span class="section-desc-text">今日 GitHub 上 Star 增速最快的开源项目，涵盖模型、框架、工程工具等</span>
+      <div class="coll-right">
+        <span class="section-type-tag tag-tool">🛠 开源</span>
+        <span class="coll-toggle" id="toggle-github">▶</span>
       </div>
+    </div>
+    <div class="section-body collapsed" id="body-github">
       <div class="repo-grid">
-        
     <a class="repo-card" href="https://github.com/microsoft/markitdown" target="_blank" rel="noopener">
       <div class="card-header">
         <span class="rank">#1</span>
@@ -1187,9 +1355,10 @@
         <span class="forks">⑂ 3.3k</span>
         <span class="stars-today">▲ 今日 +1.2k</span>
       </div>
-    </a>
-      </div>
-    </section>
+    </a></div>
+    </div>
+  </div>
+    </div>
 
   </div>
 </main>
@@ -1197,11 +1366,48 @@
 <footer class="site-footer">
   <div class="container">
     <div class="footer-inner">
-      <span class="footer-gen">生成于 2026-04-14 15:13:23</span>
+      <span class="footer-gen">生成于 2026-04-14 16:15:30</span>
       <span class="footer-brand">⚡ AI 日报 — 由 OpenClaw 驱动</span>
     </div>
   </div>
 </footer>
+
+<script>
+  function switchTab(tabId, btn) {
+    // 切换按钮 active
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // 切换 pane
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    // 持久化到 sessionStorage
+    try { sessionStorage.setItem('ai-daily-tab', tabId); } catch(e) {}
+  }
+
+  function toggleSection(sectionId) {
+    var body = document.getElementById('body-' + sectionId);
+    var toggle = document.getElementById('toggle-' + sectionId);
+    if (!body) return;
+    if (body.classList.contains('collapsed')) {
+      body.classList.remove('collapsed');
+      toggle.classList.add('open');
+    } else {
+      body.classList.add('collapsed');
+      toggle.classList.remove('open');
+    }
+  }
+
+  // 恢复上次选中的 Tab
+  (function() {
+    try {
+      var saved = sessionStorage.getItem('ai-daily-tab');
+      if (saved) {
+        var btn = document.querySelector('.tab-btn[data-tab="' + saved + '"]');
+        if (btn) switchTab(saved, btn);
+      }
+    } catch(e) {}
+  })();
+</script>
 
 </body>
 </html>
