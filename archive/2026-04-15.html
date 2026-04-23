@@ -790,8 +790,118 @@
       padding: 32px 20px; text-align: center; color: var(--text-tertiary); font-size: 14px;
       background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius);
     }
+    /* 🆕 v2: 精华卡新增元素 */
+    .featured-card { position: relative; }
+    .fc-relevance-badge {
+      position: absolute; top: 10px; right: 10px; z-index: 2;
+      font-size: 16px; background: rgba(0,0,0,0.6); border-radius: 100px;
+      padding: 2px 6px; backdrop-filter: blur(4px);
+    }
+    .fc-direction-tag {
+      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px;
+      white-space: nowrap;
+    }
+    .fc-combine-preview {
+      font-size: 11px; color: var(--text-tertiary); line-height: 1.5;
+      font-style: italic; border-left: 2px solid rgba(99,179,237,0.3); padding-left: 8px;
+    }
+    /* 🆕 v2: 「与我相关」区块 */
+    .relevant-section {
+      margin: 32px 0;
+    }
+    .section-header {
+      margin-bottom: 20px;
+    }
+    .section-title {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-title h2 {
+      font-size: 18px; font-weight: 700; letter-spacing: -0.02em;
+    }
+    .section-icon { font-size: 20px; }
+    .section-badge {
+      font-size: 12px; padding: 3px 10px; border-radius: 100px;
+      background: var(--bg-3); color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .relevant-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    }
+    .relevant-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: all 200ms var(--ease-spring);
+    }
+    .relevant-card:hover {
+      border-color: var(--border-hover); background: var(--bg-3);
+      transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .rc-image {
+      width: 100%; height: 120px; object-fit: cover; display: block;
+    }
+    .rc-image-placeholder {
+      width: 100%; height: 80px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .rc-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .rc-source-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .rc-source-tag {
+      font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 100px;
+      background: var(--bg-3); color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .rc-title {
+      font-size: 14px; font-weight: 600; line-height: 1.4;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .rc-brief {
+      font-size: 12px; color: var(--text-secondary); line-height: 1.6; flex: 1;
+      display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .rc-link {
+      font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 4px;
+      transition: opacity 150ms;
+    }
+    .rc-link:hover { opacity: 0.7; }
+    /* 🆕 v2: 「快扫区」区块 */
+    .quickscan-section {
+      margin: 32px 0 16px;
+    }
+    .quickscan-list {
+      list-style: none; display: flex; flex-direction: column; gap: 0;
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .quickscan-item {
+      display: flex; align-items: baseline; gap: 10px; padding: 11px 18px;
+      border-bottom: 1px solid var(--border); transition: background 150ms;
+    }
+    .quickscan-item:last-child { border-bottom: none; }
+    .quickscan-item:hover { background: var(--bg-3); }
+    .qs-direction-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .qs-source {
+      font-size: 10px; font-weight: 700; color: var(--text-tertiary);
+      white-space: nowrap; flex-shrink: 0; min-width: 60px;
+    }
+    .qs-title {
+      font-size: 13px; font-weight: 500; color: var(--text-primary);
+      flex: 1; line-height: 1.5;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      transition: color 150ms;
+    }
+    .qs-title:hover { color: var(--accent); }
+    .qs-brief {
+      font-size: 11px; color: var(--text-tertiary); white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis; max-width: 300px; flex-shrink: 0;
+    }
     @media (max-width: 768px) {
       .featured-grid { grid-template-columns: 1fr; }
+      .relevant-grid { grid-template-columns: 1fr; }
+      .qs-brief { display: none; }
     }
   </style>
 </head>
@@ -831,6 +941,8 @@
     </div>
     <div class="featured-placeholder">📡 今日精华整理中，明日见</div>
   </div>
+
+    
 
     <!-- Tab Nav -->
     <nav class="tab-nav" id="tabNav">
@@ -884,13 +996,15 @@
   </div>
     </div>
 
+    
+
   </div>
 </main>
 
 <footer class="site-footer">
   <div class="container">
     <div class="footer-inner">
-      <span class="footer-gen">生成于 2026-04-23 13:07:17</span>
+      <span class="footer-gen">生成于 2026-04-23 14:07:17</span>
       <span class="footer-brand">⚡ AI 日报 — 由 OpenClaw 驱动</span>
     </div>
   </div>
