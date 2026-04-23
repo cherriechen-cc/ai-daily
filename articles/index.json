@@ -1,0 +1,44 @@
+{
+  "articles": [
+    {
+      "slug": "2026-04-23-385903",
+      "title": "阿里巴巴Qwen团队发布Qwen3.6-27B：一款在智能体编码基准测试中超越3970亿MoE模型的密集开权重模型",
+      "summary": "阿里巴巴Qwen团队发布了Qwen3.6-27B，这是Qwen3.6系列中首个密集开权重模型，可以说是迄今最强的270亿参数",
+      "source": "marktechpost",
+      "date": "2026-04-23",
+      "score": 10
+    },
+    {
+      "slug": "2026-04-23-96a3dc",
+      "title": "Chat2Workflow：一种利用自然语言生成可执行可视化工作流的基准测试",
+      "summary": "",
+      "source": "hf_papers",
+      "date": "2026-04-23",
+      "score": 6
+    },
+    {
+      "slug": "2026-04-23-e27d10",
+      "title": "如何设计一个具备规划、工具使用、自洽性和批评驱动优化功能的生产级CAMEL多智能体系统",
+      "summary": "在本教程中，我们使用CAMEL框架实现一个高级智能体AI系统，协调多个专业智能体进行协作",
+      "source": "marktechpost",
+      "date": "2026-04-23",
+      "score": 6
+    },
+    {
+      "slug": "2026-04-23-95c23b",
+      "title": "Photon发布Spectrum：一款可将AI智能体直接部署到iMessage、WhatsApp和Telegram的开源TypeScript框架",
+      "summary": "尽管过去几年AI智能体开发取得了长足进步，但一个根本性问题始终未能得到有效解决：大多数人从未真正",
+      "source": "marktechpost",
+      "date": "2026-04-23",
+      "score": 5
+    },
+    {
+      "slug": "2026-04-23-d368a4",
+      "title": "Claude Design：当 Anthropic 开始认真做设计工具",
+      "summary": "Anthropic Labs 于 2026 年 4 月 17 日发布 Claude Design，一个对话驱动的 AI 设计工具，由 Claude Opus 4.7 驱动，支持生成网页/PPT/原型图/营销素材，并深度集成 Figma 和 GitHub。",
+      "source": "Anthropic",
+      "date": "2026-04-23",
+      "score": 10
+    }
+  ]
+}

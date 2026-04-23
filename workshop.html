@@ -8,718 +8,99 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ============================================
-       DESIGN TOKENS
-    ============================================ */
     :root {
-      --bg: #0f0f0f;
-      --bg-2: #161616;
-      --bg-3: #1c1c1c;
-      --bg-4: #242424;
-      --border: rgba(255,255,255,0.07);
-      --border-hover: rgba(255,255,255,0.18);
-      --glow: rgba(99, 179, 237, 0.15);
-      --text-primary: #f0ede8;
-      --text-secondary: #a09a92;
-      --text-tertiary: #635e58;
-      --accent: #63b3ed;
-      --accent-dim: rgba(99,179,237,0.12);
-      --green: #56d364;
-      --yellow: #e3b341;
-      --purple: #bc8cff;
-      --pink: #ff6b9d;
+      --bg: #0f0f0f; --bg-2: #161616; --bg-3: #1c1c1c; --bg-4: #242424;
+      --border: rgba(255,255,255,0.07); --border-hover: rgba(255,255,255,0.18);
+      --text-primary: #f0ede8; --text-secondary: #a09a92; --text-tertiary: #635e58;
+      --accent: #63b3ed; --accent-dim: rgba(99,179,237,0.12);
+      --green: #56d364; --yellow: #e3b341; --purple: #bc8cff;
       --font: 'Geist', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
-      --radius: 12px;
-      --radius-sm: 8px;
-      --radius-xs: 6px;
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1); --radius: 12px; --radius-sm: 8px;
     }
-
-    /* ============================================
-       RESET & BASE
-    ============================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; scroll-behavior: smooth; overflow-x: hidden; }
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text-primary);
-      line-height: 1.6;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
+    body { font-family: var(--font); background: var(--bg); color: var(--text-primary);
+      line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased; }
     a { color: inherit; text-decoration: none; }
-
-    /* ============================================
-       LAYOUT
-    ============================================ */
-    .container {
-      max-width: 1280px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 0 24px;
-      box-sizing: border-box;
-    }
-
-    /* ============================================
-       HEADER
-    ============================================ */
+    .container { max-width: 1280px; width: 100%; margin: 0 auto; padding: 0 24px; }
     .site-header {
-      border-bottom: 1px solid var(--border);
-      padding: 20px 0;
-      position: sticky;
-      top: 0;
-      background: rgba(15,15,15,0.88);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      z-index: 100;
+      border-bottom: 1px solid var(--border); padding: 20px 0;
+      position: sticky; top: 0;
+      background: rgba(15,15,15,0.88); backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px); z-index: 100;
     }
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .brand {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-    }
-    .brand-title {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #f0ede8 0%, #a09a92 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .header-nav {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .brand-title { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+    .header-nav { display: flex; gap: 4px; }
     .nav-link {
-      font-size: 13px;
-      color: var(--text-secondary);
-      padding: 6px 12px;
-      border-radius: var(--radius-xs);
+      font-size: 13px; font-weight: 500; padding: 6px 14px;
+      border-radius: 8px; color: var(--text-secondary);
       transition: all 150ms var(--ease-spring);
     }
-    .nav-link:hover {
-      color: var(--text-primary);
-      background: var(--bg-3);
-    }
-    .nav-link.active {
-      color: var(--accent);
-      background: var(--accent-dim);
-    }
-
-    /* ============================================
-       WORKSHOP LAYOUT
-    ============================================ */
-    .workshop-layout {
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 0;
-      min-height: calc(100vh - 65px);
-    }
-
-    /* ============================================
-       LEFT PANEL - CASE LIST
-    ============================================ */
-    .case-panel {
-      background: var(--bg-2);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .case-panel-header {
-      padding: 20px;
+    .nav-link:hover { background: var(--bg-3); color: var(--text-primary); }
+    .nav-link.active { background: var(--bg-3); color: var(--text-primary); }
+    .workshop-hero {
+      padding: 56px 0 40px;
       border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
     }
-    .case-panel-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-    .case-count-badge {
-      font-size: 11px;
-      color: var(--text-tertiary);
-      background: var(--bg-3);
-      border: 1px solid var(--border);
-      padding: 2px 7px;
-      border-radius: 100px;
-    }
-    .case-list {
-      flex: 1;
-      overflow-y: auto;
-      padding: 8px;
-    }
-    .case-item {
-      padding: 12px 14px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: background 150ms var(--ease-spring);
-      border: 1px solid transparent;
-      margin-bottom: 4px;
-    }
-    .case-item:hover {
-      background: var(--bg-3);
-    }
-    .case-item.active {
-      background: var(--accent-dim);
-      border-color: rgba(99,179,237,0.25);
-    }
-    .case-item-title {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-primary);
-      line-height: 1.4;
-      margin-bottom: 6px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .case-item.active .case-item-title {
-      color: var(--accent);
-    }
-    .case-item-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .case-date {
-      font-size: 11px;
-      color: var(--text-tertiary);
-    }
-    .case-status {
-      font-size: 10px;
-      font-weight: 600;
-      padding: 2px 7px;
-      border-radius: 100px;
-      letter-spacing: 0.04em;
-    }
-    .status-draft {
-      background: rgba(227,179,65,0.15);
-      color: var(--yellow);
-      border: 1px solid rgba(227,179,65,0.3);
-    }
-    .status-published {
-      background: rgba(86,211,100,0.12);
-      color: var(--green);
-      border: 1px solid rgba(86,211,100,0.25);
-    }
-    .case-tags {
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-      margin-top: 6px;
-    }
-    .case-tag {
-      font-size: 10px;
-      color: var(--text-tertiary);
-      background: var(--bg-4);
-      border: 1px solid var(--border);
-      padding: 1px 6px;
-      border-radius: 4px;
-    }
-    .case-panel-footer {
-      padding: 12px;
-      border-top: 1px solid var(--border);
-    }
-    .btn-new-case {
-      width: 100%;
-      padding: 10px 16px;
-      background: transparent;
-      border: 1px dashed rgba(99,179,237,0.4);
-      color: var(--accent);
-      font-family: var(--font);
-      font-size: 13px;
-      font-weight: 500;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all 150ms var(--ease-spring);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    .btn-new-case:hover {
-      background: var(--accent-dim);
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    /* ============================================
-       RIGHT PANEL - PREVIEW
-    ============================================ */
-    .preview-panel {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      background: var(--bg);
-    }
-    .preview-panel-header {
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--bg-2);
-      flex-shrink: 0;
-    }
-    .preview-case-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text-primary);
-      flex: 1;
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .preview-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-    .btn-action {
-      padding: 7px 14px;
-      font-family: var(--font);
-      font-size: 12px;
-      font-weight: 500;
-      border-radius: var(--radius-xs);
-      cursor: pointer;
-      transition: all 150ms var(--ease-spring);
-      border: none;
-    }
-    .btn-edit {
-      background: var(--bg-3);
-      color: var(--text-secondary);
-      border: 1px solid var(--border);
-    }
-    .btn-edit:hover {
-      background: var(--bg-4);
-      color: var(--text-primary);
-    }
-    .btn-publish {
-      background: linear-gradient(135deg, #56d364, #43c25b);
-      color: #0f0f0f;
-    }
-    .btn-publish:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(86,211,100,0.3);
-    }
-
-    /* ============================================
-       PREVIEW CONTENT AREA
-    ============================================ */
-    .preview-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 32px 24px;
-      display: flex;
-      gap: 32px;
-      align-items: flex-start;
-    }
-
-    /* ============================================
-       XIAOHONGSHU CARD
-    ============================================ */
-    .xhs-wrapper {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .xhs-label {
-      font-size: 11px;
-      color: var(--text-tertiary);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 600;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .xhs-label::before,
-    .xhs-label::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-      max-width: 60px;
-    }
-    .xhs-phone-frame {
-      width: 100%;
-      max-width: 390px;
-      background: #fff;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
-    }
-    /* XHS Status Bar */
-    .xhs-status-bar {
-      background: #fff;
-      padding: 12px 20px 4px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .xhs-time {
-      font-size: 13px;
-      font-weight: 700;
-      color: #1a1a1a;
-      font-variant-numeric: tabular-nums;
-    }
-    .xhs-status-icons {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-    .xhs-status-icons span {
-      font-size: 12px;
-    }
-    /* XHS Top Nav */
-    .xhs-top-nav {
-      background: #fff;
-      padding: 8px 16px 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .xhs-back-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #f5f5f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: #333;
-      flex-shrink: 0;
-    }
-    .xhs-nav-tabs {
-      display: flex;
-      gap: 16px;
-      flex: 1;
-      justify-content: center;
-    }
-    .xhs-tab {
-      font-size: 14px;
-      color: #999;
-      cursor: pointer;
-    }
-    .xhs-tab.active {
-      font-size: 16px;
-      font-weight: 700;
-      color: #1a1a1a;
-    }
-    .xhs-more-btn {
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      color: #333;
-      flex-shrink: 0;
-    }
-    /* XHS Image Area */
-    .xhs-image-area {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f64f59 100%);
-      width: 100%;
-      aspect-ratio: 4/3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .xhs-image-placeholder {
-      text-align: center;
-      color: rgba(255,255,255,0.7);
-    }
-    .xhs-image-placeholder .img-icon {
-      font-size: 40px;
-      display: block;
-      margin-bottom: 8px;
-    }
-    .xhs-image-placeholder .img-text {
-      font-size: 12px;
-    }
-    .xhs-image-dots {
-      position: absolute;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 5px;
-    }
-    .xhs-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.4);
-    }
-    .xhs-dot.active {
-      width: 16px;
-      border-radius: 3px;
-      background: #fff;
-    }
-    /* XHS Content */
-    .xhs-content-area {
-      background: #fff;
-      padding: 16px 16px 0;
-    }
-    .xhs-user-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-    .xhs-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ff6b9d, #ffb347);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      flex-shrink: 0;
-      font-weight: 700;
-      color: #fff;
-    }
-    .xhs-username {
-      font-size: 13px;
-      font-weight: 600;
-      color: #1a1a1a;
-      flex: 1;
-    }
-    .xhs-follow-btn {
-      font-size: 12px;
-      color: #ff2442;
-      border: 1px solid #ff2442;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-weight: 500;
-    }
-    .xhs-post-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #1a1a1a;
-      line-height: 1.45;
-      margin-bottom: 10px;
-    }
-    .xhs-post-body {
-      font-size: 13px;
-      color: #333;
-      line-height: 1.7;
-      margin-bottom: 12px;
-    }
-    .xhs-post-tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-    }
-    .xhs-tag {
-      font-size: 12px;
-      color: #3d8bff;
-      cursor: pointer;
-    }
-    /* XHS Action Bar */
-    .xhs-action-bar {
-      background: #fff;
-      border-top: 1px solid #f0f0f0;
-      padding: 12px 16px 20px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .xhs-action {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 6px 10px;
-      border-radius: 20px;
-      font-size: 13px;
-      color: #666;
-      cursor: pointer;
-    }
-    .xhs-action:hover {
-      background: #f5f5f5;
-    }
-    .xhs-action-icon {
-      font-size: 16px;
-    }
-    .xhs-action-count {
-      font-size: 12px;
-      color: #999;
-    }
-    .xhs-comment-input {
-      flex: 1;
-      margin-left: 8px;
-      background: #f5f5f5;
-      border-radius: 20px;
-      padding: 7px 14px;
-      font-size: 12px;
-      color: #999;
-    }
-
-    /* ============================================
-       DATA REFERENCE PANEL
-    ============================================ */
-    .data-ref-panel {
-      width: 280px;
-      flex-shrink: 0;
-    }
-    .data-ref-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .data-ref-title-icon {
-      font-size: 16px;
-    }
-    .data-ref-card {
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      margin-bottom: 12px;
-    }
-    .data-ref-item {
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--border);
-      transition: background 150ms;
-      cursor: pointer;
-    }
-    .data-ref-item:last-child {
-      border-bottom: none;
-    }
-    .data-ref-item:hover {
-      background: var(--bg-3);
-    }
-    .data-ref-platform {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--text-tertiary);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 5px;
-    }
-    .data-ref-item-title {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-primary);
-      line-height: 1.45;
-      margin-bottom: 8px;
-    }
-    .data-ref-stats {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .data-stat {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      font-size: 11px;
-      color: var(--text-secondary);
-    }
-    .data-stat-icon {
-      font-size: 12px;
-    }
-    .data-stat-num {
-      font-variant-numeric: tabular-nums;
-      font-weight: 500;
-    }
-
-    /* ============================================
-       FOOTER
-    ============================================ */
-    .site-footer {
-      border-top: 1px solid var(--border);
-      padding: 16px 0;
-      text-align: center;
-      background: var(--bg-2);
-    }
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      align-items: center;
-    }
-    .footer-gen {
-      font-size: 12px;
-      color: var(--text-tertiary);
-    }
-
-    /* ============================================
-       SCROLLBAR
-    ============================================ */
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--bg-4); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
-
-    /* ============================================
-       RESPONSIVE
-    ============================================ */
-    @media (max-width: 900px) {
-      .preview-content {
-        flex-direction: column;
-        align-items: center;
-      }
-      .data-ref-panel {
-        width: 100%;
-        max-width: 420px;
-      }
-    }
-    @media (max-width: 700px) {
-      .workshop-layout {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr;
-      }
-      .case-panel {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        max-height: 260px;
-      }
-      .preview-panel {
-        min-height: 500px;
-      }
-      .container { padding: 0 16px; }
+    .workshop-hero h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 10px; }
+    .workshop-hero p { font-size: 15px; color: var(--text-secondary); max-width: 560px; }
+    .workshop-main { padding: 40px 0 80px; }
+    .create-banner {
+      background: linear-gradient(135deg, rgba(99,179,237,0.08) 0%, rgba(188,140,255,0.08) 100%);
+      border: 1px solid rgba(99,179,237,0.2);
+      border-radius: var(--radius); padding: 24px 28px; margin-bottom: 40px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+    }
+    .create-banner-left h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .create-banner-left p { font-size: 13px; color: var(--text-secondary); }
+    .create-hint {
+      display: inline-block; background: var(--bg-3); border: 1px solid var(--border-hover);
+      border-radius: 8px; padding: 8px 16px; font-size: 13px; font-weight: 500; color: var(--accent); white-space: nowrap;
+    }
+    .article-list-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+    }
+    .article-list-title { font-size: 16px; font-weight: 600; }
+    .article-count { font-size: 12px; color: var(--text-tertiary); }
+    .article-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+    .article-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px; cursor: pointer;
+      transition: all 200ms var(--ease-spring); display: flex; flex-direction: column; gap: 10px;
+    }
+    .article-card:hover {
+      border-color: var(--border-hover); background: var(--bg-3);
+      transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .ac-source-row { display: flex; align-items: center; gap: 8px; }
+    .ac-source-tag {
+      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px;
+      background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(99,179,237,0.25);
+    }
+    .ac-date { font-size: 11px; color: var(--text-tertiary); }
+    .ac-title { font-size: 15px; font-weight: 600; line-height: 1.4; }
+    .ac-summary { font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .ac-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+    .ac-read { font-size: 12px; color: var(--accent); font-weight: 500; }
+    .loading-state { text-align: center; padding: 80px 0; color: var(--text-tertiary); font-size: 14px; }
+    .empty-state { text-align: center; padding: 80px 0; }
+    .empty-state .empty-icon { font-size: 48px; margin-bottom: 16px; }
+    .empty-state h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+    .empty-state p { font-size: 14px; color: var(--text-secondary); }
+    @media (max-width: 768px) {
+      .workshop-hero h1 { font-size: 24px; }
+      .article-grid { grid-template-columns: 1fr; }
+      .create-banner { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
-
-<!-- HEADER -->
 <header class="site-header">
   <div class="container">
     <div class="header-inner">
-      <div class="brand">
-        <span class="brand-title">⚡ AI 日报</span>
-      </div>
+      <span class="brand-title">⚡ AI 日报</span>
       <nav class="header-nav">
         <a href="index.html" class="nav-link">日报</a>
         <a href="workshop.html" class="nav-link active">内容工坊</a>
@@ -727,128 +108,89 @@
     </div>
   </div>
 </header>
-
-<!-- WORKSHOP LAYOUT -->
-<div class="workshop-layout">
-
-  <!-- LEFT: CASE LIST -->
-  <aside class="case-panel">
-    <div class="case-panel-header">
-      <span class="case-panel-title">我的案例</span>
-      <span class="case-count-badge" id="caseCountBadge">1</span>
+<main>
+  <div class="container">
+    <div class="workshop-hero">
+      <h1>✍️ 内容工坊</h1>
+      <p>由 AI 自动精选 + 卡兹克风格深度解读。每天定时更新，读懂 AI 不费力。</p>
     </div>
-    <div class="case-list" id="caseList">
-      <!-- Rendered by JS -->
-    </div>
-    <div class="case-panel-footer">
-      <button class="btn-new-case" onclick="handleNewCase()">
-        <span>＋</span>
-        <span>新建案例</span>
-      </button>
-    </div>
-  </aside>
-
-  <!-- RIGHT: PREVIEW -->
-  <div class="preview-panel">
-    <div class="preview-panel-header">
-      <h1 class="preview-case-title" id="previewTitle">选择一个案例开始预览</h1>
-      <div class="preview-actions">
-        <button class="btn-action btn-edit" onclick="handleEdit()">✏️ 编辑</button>
-        <button class="btn-action btn-publish" onclick="handlePublish()">🚀 发布</button>
+    <div class="workshop-main">
+      <div class="create-banner">
+        <div class="create-banner-left">
+          <h3>💬 想读某个话题的深度文章？</h3>
+          <p>发消息给小聪明，他会为你量身定制一篇卡兹克风格的深度解读。</p>
+        </div>
+        <span class="create-hint">发消息：帮我写一篇关于 XXX 的文章</span>
       </div>
-    </div>
-    <div class="preview-content">
-      <!-- XHS Card -->
-      <div class="xhs-wrapper">
-        <div class="xhs-label">小红书预览</div>
-        <div class="xhs-phone-frame">
-          <!-- Status Bar -->
-          <div class="xhs-status-bar">
-            <span class="xhs-time">9:41</span>
-            <div class="xhs-status-icons">
-              <span>📶</span>
-              <span>🔋</span>
-            </div>
-          </div>
-          <!-- Top Nav -->
-          <div class="xhs-top-nav">
-            <div class="xhs-back-btn">←</div>
-            <div class="xhs-nav-tabs">
-              <span class="xhs-tab">关注</span>
-              <span class="xhs-tab active">正文</span>
-              <span class="xhs-tab">评论 99+</span>
-            </div>
-            <div class="xhs-more-btn">···</div>
-          </div>
-          <!-- Image -->
-          <div class="xhs-image-area">
-            <div class="xhs-image-placeholder">
-              <span class="img-icon">🏔</span>
-              <span class="img-text">封面图</span>
-            </div>
-            <div class="xhs-image-dots">
-              <div class="xhs-dot active"></div>
-              <div class="xhs-dot"></div>
-              <div class="xhs-dot"></div>
-            </div>
-          </div>
-          <!-- Content -->
-          <div class="xhs-content-area">
-            <div class="xhs-user-row">
-              <div class="xhs-avatar">差</div>
-              <span class="xhs-username">差点是美女</span>
-              <div class="xhs-follow-btn">关注</div>
-            </div>
-            <div class="xhs-post-title" id="xhsTitle">带3岁娃+65岁老人重庆4天，AI帮我做了全程攻略</div>
-            <div class="xhs-post-body" id="xhsBody">
-              宝贝大大3岁4个月，这次带着他和外公外婆一起去重庆玩了4天…<br><br>
-              一开始我真的超级焦虑：带娃+带老人，要考虑的事太多了。但这次我用AI做了全程规划，效果真的超出预期！✨<br><br>
-              📍洪崖洞的灯光很美，但人太多，建议下午4点就去排队<br>
-              🚇 轨道交通2号线穿楼而过，大大看了说"火车要飞起来啦！"哈哈哈<br>
-              🍜 小面必吃！老人和宝宝都可以吃不辣版
-            </div>
-            <div class="xhs-post-tags" id="xhsTags">
-              <span class="xhs-tag">#亲子旅游</span>
-              <span class="xhs-tag">#AI工具</span>
-              <span class="xhs-tag">#重庆</span>
-            </div>
-          </div>
-          <!-- Action Bar -->
-          <div class="xhs-action-bar">
-            <div class="xhs-action">
-              <span class="xhs-action-icon">❤️</span>
-              <span class="xhs-action-count">2.1k</span>
-            </div>
-            <div class="xhs-action">
-              <span class="xhs-action-icon">⭐</span>
-              <span class="xhs-action-count">891</span>
-            </div>
-            <div class="xhs-comment-input">说点什么…</div>
-            <div class="xhs-action">
-              <span class="xhs-action-icon">↪️</span>
-            </div>
-          </div>
-        </div>
+      <div class="article-list-header">
+        <span class="article-list-title">📚 精华文章库</span>
+        <span class="article-count" id="article-count">加载中…</span>
       </div>
-
-      <!-- Data Reference -->
-      <div class="data-ref-panel">
-        <div class="data-ref-title">
-          <span>📊 相关热点数据</span>
-        </div>
-        <div class="data-ref-list">
-          <div class="data-ref-item"><span class="data-ref-platform xhs">小红书</span><span class="data-ref-ttl">带娃重庆4天3夜攻略</span><span class="data-ref-stats">❤️ 2341 · ⭐ 891</span></div>
-          <div class="data-ref-item"><span class="data-ref-platform xhs">小红书</span><span class="data-ref-ttl">重庆亲子游必打卡轨道交通</span><span class="data-ref-stats">❤️ 1823 · ⭐ 654</span></div>
-          <div class="data-ref-item"><span class="data-ref-platform zhihu">知乎</span><span class="data-ref-ttl">带老人和孩子去重庆旅游注意什么</span><span class="data-ref-stats">👍 456 · 💬 89</span></div>
-        </div>
+      <div id="article-container">
+        <div class="loading-state">⏳ 正在加载文章…</div>
       </div>
     </div>
   </div>
-</div>
-<footer class="footer">
-  <div class="footer-inner">
-    <span class="footer-brand">⚡ AI 日报 · 内容工坊 — 由 OpenClaw 驱动</span>
+</main>
+<footer style="border-top:1px solid var(--border);padding:24px 0;margin-top:40px;">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-tertiary);">
+      <span>⚡ AI 日报 · 内容工坊 — 由 OpenClaw 驱动</span>
+    </div>
   </div>
 </footer>
+<script>
+(function() {
+  var SOURCE_LABELS = {
+    hf_papers: '🤗 HuggingFace',
+    arxiv: '📄 arXiv',
+    marktechpost: '📰 MarkTechPost',
+    jiqizhixin: '🤖 机器之心',
+    qbitai: '⚛️ 量子位',
+    '36kr': '📢 36氪'
+  };
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function renderArticles(articles) {
+    var container = document.getElementById('article-container');
+    var countEl = document.getElementById('article-count');
+    if (!articles || articles.length === 0) {
+      container.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><h3>暂无文章</h3><p>精华文章整理中，明天定时任务跑后自动填充。</p></div>';
+      countEl.textContent = '共 0 篇';
+      return;
+    }
+    countEl.textContent = '共 ' + articles.length + ' 篇';
+    var html = '<div class="article-grid">';
+    articles.forEach(function(a) {
+      var srcLabel = SOURCE_LABELS[a.source] || a.source || '未知来源';
+      var summary = a.summary || '';
+      if (summary.length > 120) summary = summary.slice(0, 120) + '…';
+      html += '<div class="article-card" onclick="location.href='articles/' + escHtml(a.slug) + '.html'">';
+      html += '<div class="ac-source-row"><span class="ac-source-tag">' + srcLabel + '</span>';
+      if (a.date) html += '<span class="ac-date">' + escHtml(a.date) + '</span>';
+      html += '</div>';
+      html += '<div class="ac-title">' + escHtml(a.title) + '</div>';
+      if (summary) html += '<div class="ac-summary">' + escHtml(summary) + '</div>';
+      html += '<div class="ac-footer"><span class="ac-read">阅读全文 →</span></div></div>';
+    });
+    html += '</div>';
+    container.innerHTML = html;
+  }
+  fetch('articles/index.json?t=' + Date.now())
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var articles = data.articles || [];
+      articles.sort(function(a, b) { return (b.date || '').localeCompare(a.date || ''); });
+      renderArticles(articles);
+    })
+    .catch(function(e) {
+      console.error('Failed to load articles/index.json', e);
+      document.getElementById('article-container').innerHTML =
+        '<div class="empty-state"><div class="empty-icon">📭</div><h3>暂无文章</h3><p>精华文章整理中，明天定时任务跑后自动填充。</p></div>';
+      document.getElementById('article-count').textContent = '共 0 篇';
+    });
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Design：当 Anthropic 开始认真做设计工具 — AI 日报</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f0f0f; --bg-2: #161616; --bg-3: #1c1c1c; --bg-4: #242424;
+      --border: rgba(255,255,255,0.07); --border-hover: rgba(255,255,255,0.18);
+      --text-primary: #f0ede8; --text-secondary: #a09a92; --text-tertiary: #635e58;
+      --accent: #63b3ed; --accent-dim: rgba(99,179,237,0.12);
+      --green: #56d364; --yellow: #e3b341; --purple: #bc8cff;
+      --font: 'Geist', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1); --radius: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text-primary);
+      line-height: 1.7; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 800px; width: 100%; margin: 0 auto; padding: 0 24px; }
+
+    .site-header {
+      border-bottom: 1px solid var(--border); padding: 16px 0;
+      position: sticky; top: 0;
+      background: rgba(15,15,15,0.88); backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px); z-index: 100;
+    }
+    .header-inner { display: flex; align-items: center; gap: 16px; }
+    .back-link {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--text-secondary);
+      transition: color 150ms; cursor: pointer;
+    }
+    .back-link:hover { color: var(--text-primary); text-decoration: none; }
+    .brand-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+
+    .article-wrapper { padding: 48px 0 80px; }
+    .article-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .source-tag {
+      font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 100px;
+      background: var(--accent-dim); color: var(--accent);
+      border: 1px solid rgba(99,179,237,0.3);
+    }
+    .date-tag {
+      font-size: 11px; color: var(--text-tertiary);
+    }
+    .score-tag {
+      font-size: 11px; padding: 3px 9px; border-radius: 100px;
+      background: rgba(86,211,100,0.1); color: var(--green);
+      border: 1px solid rgba(86,211,100,0.2);
+    }
+    .article-title {
+      font-size: 28px; font-weight: 700; line-height: 1.3;
+      letter-spacing: -0.02em; margin-bottom: 12px;
+    }
+    .article-source-link {
+      font-size: 12px; color: var(--text-tertiary); margin-bottom: 32px;
+      display: block;
+    }
+    .article-source-link a { color: var(--text-tertiary); }
+    .article-source-link a:hover { color: var(--accent); }
+
+    .article-cover { margin-bottom: 32px; border-radius: var(--radius); overflow: hidden; }
+    .article-cover img { width: 100%; height: 360px; object-fit: cover; display: block; }
+
+    .article-body { font-size: 16px; line-height: 1.85; color: var(--text-primary); }
+    .article-body h1, .article-body h2, .article-body h3 {
+      font-weight: 700; margin: 2em 0 0.8em; line-height: 1.3; letter-spacing: -0.01em;
+    }
+    .article-body h1 { font-size: 24px; }
+    .article-body h2 { font-size: 20px; }
+    .article-body h3 { font-size: 17px; color: var(--text-secondary); }
+    .article-body p { margin: 0 0 1.4em; }
+    .article-body ul, .article-body ol { padding-left: 1.5em; margin: 0 0 1.4em; }
+    .article-body li { margin-bottom: 0.4em; }
+    .article-body blockquote {
+      border-left: 3px solid var(--accent); padding: 12px 20px;
+      margin: 1.4em 0; background: var(--accent-dim); border-radius: 0 8px 8px 0;
+    }
+    .article-body blockquote p { margin: 0; color: var(--text-secondary); font-style: italic; }
+    .article-body code {
+      font-size: 13px; background: var(--bg-3); padding: 2px 6px;
+      border-radius: 4px; font-family: 'JetBrains Mono', monospace;
+    }
+    .article-body pre { background: var(--bg-3); padding: 20px; border-radius: var(--radius);
+      overflow-x: auto; margin: 1.4em 0; }
+    .article-body pre code { background: none; padding: 0; }
+    .article-body strong { font-weight: 700; color: #fff; }
+    .article-body em { color: var(--text-secondary); }
+    .article-body hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
+    .article-body a { color: var(--accent); }
+
+    .article-footer {
+      margin-top: 48px; padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-back { font-size: 13px; color: var(--text-secondary); }
+    .footer-back a { color: var(--accent); }
+    .orig-link { font-size: 13px; color: var(--text-tertiary); }
+    .orig-link a { color: var(--text-tertiary); }
+    .orig-link a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="../index.html" class="back-link">← 返回日报</a>
+      <span class="brand-title">⚡ AI 日报 · 精华文章</span>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container">
+    <article class="article-wrapper">
+      <div class="article-meta">
+        <span class="source-tag">🔗 Anthropic</span>
+        <span class="date-tag">2026-04-23</span>
+        <span class="score-tag">热度 10</span>
+      </div>
+      <h1 class="article-title">Claude Design：当 Anthropic 开始认真做设计工具</h1>
+      <span class="article-source-link">原文：<a href="https://anthropic.com/claude/design" target="_blank" rel="noopener">https://anthropic.com/claude/design</a></span>
+      
+      <div class="article-body" id="article-body"></div>
+      <div class="article-footer">
+        <div class="footer-back">← <a href="../index.html">返回 AI 日报</a></div>
+        <div class="orig-link">查看原文：<a href="https://anthropic.com/claude/design" target="_blank" rel="noopener">🔗 Anthropic</a></div>
+      </div>
+    </article>
+  </div>
+</main>
+<script>
+  var md = '# 设计师的噩梦，还是每个人的解放？——我用 Claude Design 想了一晚上\n\n某天深夜，我一个朋友正在对着 Figma 发呆。\n\n她是一个做 SaaS 的创始人，不是设计师。公司的 B 轮 Pitch Deck 明天要交给 GP 看，但她找不到一个能在一天内把她想法变成好看东西的人——设计师太贵，设计公司周期太长，Canva 做出来的东西她自己都不满意，看起来像是一个实习生赶出来的东西。\n\n她凌晨 2 点给我发消息，问能不能帮她做几页。\n\n我当时没有什么好答案给她。设计这件事，一直是一道无形的门——你要么会，要么不会。\n\n---\n\n2026 年 4 月 17 日，Anthropic Labs 发布 Claude Design。\n\n我第一次听说这个消息的时候，脑子里第一个反应是：这不就是更好看的 Canva AI 吗？\n\n然后我去认真读了官方公告，开始改变想法。\n\nClaude Design 不是「更好看的 Canva AI」，它更接近于一个试图重新定义「谁能做设计」这个问题的答案。背后驱动它的是 Claude Opus 4.7，Anthropic 目前视觉能力最强的模型。它能做的事情，从交互式原型、产品线框图，到 Pitch Deck、营销 Landing Page，到「Frontier Design」——语音、视频、3D、shader，代码驱动的视觉。\n\n更重要的是它怎么做这件事：对话。\n\n你描述想要什么，它生成第一版。然后你说「左边的按钮颜色太强势了，整体想要轻盈一点」，它修改。你说「这个版本的标题不对，改成更直接的」，它重写。你还可以在具体的元素上点一下，留下内联评论，像 Code Review 一样告诉它哪里需要改。\n\n这个交互模式，是 Anthropic 从 2024 年的 Artifacts 功能一路演化过来的——那时候 Claude 开始能在对话旁边生成可以实时渲染的东西，HTML、React 组件、SVG……那是一个不起眼的产品更新，但它奠定了 Claude Design 的基因：**对话即设计**。\n\n---\n\n我在思考一个问题：设计到底是什么？\n\n设计有两个层面。第一个层面，是技能——你得懂构图、配色、字体、交互逻辑……这些是可以学习的专业知识，大多数人没有这些知识，所以这道门才存在。\n\n第二个层面，是判断——你得知道「这个感觉对」和「这个感觉不对」，你得能分辨出好设计和坏设计。这种判断力更接近品味，它是从大量的视觉消费中积累出来的，不一定需要专业训练。\n\n一个有眼光但没有技能的人，处于一种最痛苦的状态：他们知道自己想要什么，但无法把它做出来。他们能在看到一个坏设计的时候立刻皱眉，但无法自己做出好的。\n\nClaude Design 的野心，是让第二层（判断力）成为核心能力，把第一层（技能）外包给 AI。\n\n**判断力是人的，技能是模型的。** 这是它想建立的新分工。\n\n---\n\nMike Krieger 在 Instagram 做过一次类似的事情。\n\n2010 年，他和 Kevin Systrom 做 Instagram，核心设计决策之一是滤镜。那些暖色调的、复古的、模拟胶片的滤镜，让一张普通人用手机拍的照片瞬间「好看」了。它把「拍一张好看的照片」这件事，从专业摄影师的特权，变成了所有人都能在 30 秒内完成的事情。\n\n结果是什么？不是摄影师消失了，而是「能拍好看照片的人」从几百万变成了几十亿。摄影师依然存在，而且在 Instagram 上找到了更大的舞台。但普通人也能够表达了。\n\nKrieger 2026 年 1 月加入 Anthropic Labs，负责 Claude Design 这条产品线。这不是巧合，而是 Anthropic 在说：我们需要把「让设计民主化」的逻辑，从图片滤镜扩展到一切视觉创作。\n\n---\n\n当然，并不是所有人都高兴。\n\n设计师社区对 Claude Design 的反应，和当年设计师对 Canva 的反应有某种相似性——一半是「这会抢走低端工作」的忧虑，一半是「这最终会让设计师的工作更有价值」的自我安慰。\n\n我倾向于相信后一半更接近真相，但我也不想假装这个过渡是无痛的。\n\n一个更残酷的真相是：Claude Design 最直接替代的，不是高级设计师，而是那些介于「有设计能力」和「没有设计能力」之间的中间层——做企业 PPT 模板的兼职、帮小公司做 Landing Page 的自由职业者、用 Canva 接单的人。这些工作，Claude Design 可以以更低的成本完成，而且对非专业人士来说，质量可能更好。\n\n但这是每次技术浪潮都会发生的事情。不是「这个好不好」的问题，而是「这是正在发生的事实」。\n\n---\n\n我最感兴趣的，还是 Claude Design 的那个「Handoff to Claude Code」功能。\n\n这是一个看起来普通的功能描述，背后却是一个非常大的赌注：**打通从想法到代码的全链路**。\n\n以前的流程是：你有个想法 → 设计师做 Mockup（Figma）→ PM 和设计师反复拉锯 → 工程师接 Figma 标注实现 → 回来发现实现和设计不一样 → 再沟通。每一个箭头都是一次信息损失，都是一次等待，都是一次摩擦。\n\nClaude Design 的方向是：想法 → 对话生成设计（Claude Design）→ 一键打包交给 Claude Code 实现 → 代码直接对应设计意图。\n\n如果这能做好——这是个很大的「如果」——那「设计-开发」这个传统的人员分工，在某些场景下可能会被重新组织。不是说设计师和工程师都消失了，而是「某种程度上既做设计又做开发的人」会越来越普遍，而中间的协作成本会大幅降低。\n\n这是 Anthropic 正在押注的一个未来：AI 把工作流里的「翻译成本」降到接近零。\n\n---\n\n发布公告里有一句话，我反复读了好几遍。\n\nBrilliant 的产品设计师 Olivia Xu 说：「我们最复杂的页面，在其他工具需要 20+ prompts，在 Claude Design 只需要 2 个 prompt。」\n\n这不是营销话术，这是一个很具体的数字对比。从 20 到 2，背后是什么？是 Opus 4.7 对设计意图的理解力更强，是它能在一个 prompt 里同时处理多个设计层面的需求，是它在「视觉语言」上的能力真的比上一代模型高了一个台阶。\n\n这让我想到一个更大的问题：**当 AI 对设计语言的理解越来越接近人类，「设计品味」还是一种稀缺资源吗？**\n\n我没有答案。但我觉得这是 Claude Design 这个产品真正值得追问的地方——它不只是一个效率工具，它是一个关于「创造力是否可以被计算」的实验。\n\n当我们说一个设计「很有品味」，我们说的到底是什么？如果 AI 能从数以亿计的好设计中学习并生成同样「有品味」的东西，那品味本身的意义是什么？\n\n我这个深夜的创始人朋友，如果今天用 Claude Design 做了她的 Pitch Deck，做出来的东西「有没有她的品味」？如果 Claude 能准确执行她的判断、生成她认为「对」的东西，那这个设计，到底算是谁的？\n\n这是 Claude Design，也是整个 AI 时代留下的开放问题。\n';
+  document.getElementById('article-body').innerHTML = marked.parse(md);
+</script>
+</body>
+</html>
