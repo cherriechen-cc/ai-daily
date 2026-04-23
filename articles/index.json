@@ -39,6 +39,38 @@
       "source": "Anthropic",
       "date": "2026-04-23",
       "score": 10
+    },
+    {
+      "slug": "auto-101756-0",
+      "title": "TEMPO：面向大型推理模型的测试时训练扩展方法",
+      "summary": "",
+      "source": "hf_papers",
+      "date": "2026-04-23",
+      "score": 7
+    },
+    {
+      "slug": "auto-101853-1",
+      "title": "如何设计生产级CAMEL多智能体系统：涵盖规划、工具使用、自一致性与批评驱动的精炼优化",
+      "summary": "在本教程中，我们使用CAMEL框架实现了一个高级智能体AI系统，通过协调多个专业化智能体协同完成任务",
+      "source": "marktechpost",
+      "date": "2026-04-23",
+      "score": 6
+    },
+    {
+      "slug": "auto-101946-2",
+      "title": "阿里巴巴Qwen团队发布Qwen3.6-27B：一款在智能体编程基准测试中超越3970亿MoE模型的稠密开放权重模型",
+      "summary": "阿里巴巴Qwen团队发布了Qwen3.6-27B，这是Qwen3.6系列中首个稠密开放权重模型，也是迄今为止最强大的270亿参数",
+      "source": "marktechpost",
+      "date": "2026-04-23",
+      "score": 6
+    },
+    {
+      "slug": "auto-102042-3",
+      "title": "Photon发布Spectrum：一款可将AI智能体直接部署至iMessage、WhatsApp和Telegram的开源TypeScript框架",
+      "summary": "尽管AI智能体开发在过去几年取得了长足进步，但一个根本性问题仍基本未能解决：大多数人从未真正",
+      "source": "marktechpost",
+      "date": "2026-04-23",
+      "score": 5
     }
   ]
 }
