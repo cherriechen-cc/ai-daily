@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tstars-Tryon 1.0：针对多样化时尚单品的鲁棒且逼真的虚拟试穿系统 — AI 日报</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f0f0f; --bg-2: #161616; --bg-3: #1c1c1c; --bg-4: #242424;
+      --border: rgba(255,255,255,0.07); --border-hover: rgba(255,255,255,0.18);
+      --text-primary: #f0ede8; --text-secondary: #a09a92; --text-tertiary: #635e58;
+      --accent: #63b3ed; --accent-dim: rgba(99,179,237,0.12);
+      --green: #56d364; --yellow: #e3b341; --purple: #bc8cff;
+      --font: 'Geist', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1); --radius: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text-primary);
+      line-height: 1.7; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 800px; width: 100%; margin: 0 auto; padding: 0 24px; }
+
+    .site-header {
+      border-bottom: 1px solid var(--border); padding: 16px 0;
+      position: sticky; top: 0;
+      background: rgba(15,15,15,0.88); backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px); z-index: 100;
+    }
+    .header-inner { display: flex; align-items: center; gap: 16px; }
+    .back-link {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--text-secondary);
+      transition: color 150ms; cursor: pointer;
+    }
+    .back-link:hover { color: var(--text-primary); text-decoration: none; }
+    .brand-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+
+    .article-wrapper { padding: 48px 0 80px; }
+    .article-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .source-tag {
+      font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 100px;
+      background: var(--accent-dim); color: var(--accent);
+      border: 1px solid rgba(99,179,237,0.3);
+    }
+    .date-tag {
+      font-size: 11px; color: var(--text-tertiary);
+    }
+    .score-tag {
+      font-size: 11px; padding: 3px 9px; border-radius: 100px;
+      background: rgba(86,211,100,0.1); color: var(--green);
+      border: 1px solid rgba(86,211,100,0.2);
+    }
+    .article-title {
+      font-size: 28px; font-weight: 700; line-height: 1.3;
+      letter-spacing: -0.02em; margin-bottom: 12px;
+    }
+    .article-source-link {
+      font-size: 12px; color: var(--text-tertiary); margin-bottom: 32px;
+      display: block;
+    }
+    .article-source-link a { color: var(--text-tertiary); }
+    .article-source-link a:hover { color: var(--accent); }
+
+    .article-cover { margin-bottom: 32px; border-radius: var(--radius); overflow: hidden; }
+    .article-cover img { width: 100%; height: 360px; object-fit: cover; display: block; }
+
+    .article-body { font-size: 16px; line-height: 1.85; color: var(--text-primary); }
+    .article-body h1, .article-body h2, .article-body h3 {
+      font-weight: 700; margin: 2em 0 0.8em; line-height: 1.3; letter-spacing: -0.01em;
+    }
+    .article-body h1 { font-size: 24px; }
+    .article-body h2 { font-size: 20px; }
+    .article-body h3 { font-size: 17px; color: var(--text-secondary); }
+    .article-body p { margin: 0 0 1.4em; }
+    .article-body ul, .article-body ol { padding-left: 1.5em; margin: 0 0 1.4em; }
+    .article-body li { margin-bottom: 0.4em; }
+    .article-body blockquote {
+      border-left: 3px solid var(--accent); padding: 12px 20px;
+      margin: 1.4em 0; background: var(--accent-dim); border-radius: 0 8px 8px 0;
+    }
+    .article-body blockquote p { margin: 0; color: var(--text-secondary); font-style: italic; }
+    .article-body code {
+      font-size: 13px; background: var(--bg-3); padding: 2px 6px;
+      border-radius: 4px; font-family: 'JetBrains Mono', monospace;
+    }
+    .article-body pre { background: var(--bg-3); padding: 20px; border-radius: var(--radius);
+      overflow-x: auto; margin: 1.4em 0; }
+    .article-body pre code { background: none; padding: 0; }
+    .article-body strong { font-weight: 700; color: #fff; }
+    .article-body em { color: var(--text-secondary); }
+    .article-body hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
+    .article-body a { color: var(--accent); }
+
+    .article-footer {
+      margin-top: 48px; padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-back { font-size: 13px; color: var(--text-secondary); }
+    .footer-back a { color: var(--accent); }
+    .orig-link { font-size: 13px; color: var(--text-tertiary); }
+    .orig-link a { color: var(--text-tertiary); }
+    .orig-link a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="../index.html" class="back-link">← 返回日报</a>
+      <span class="brand-title">⚡ AI 日报 · 精华文章</span>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container">
+    <article class="article-wrapper">
+      <div class="article-meta">
+        <span class="source-tag">🔗 </span>
+        <span class="date-tag">2026-04-23</span>
+        
+      </div>
+      <h1 class="article-title">Tstars-Tryon 1.0：针对多样化时尚单品的鲁棒且逼真的虚拟试穿系统</h1>
+      <span class="article-source-link">原文：<a href="https://huggingface.co/papers/2604.19748" target="_blank" rel="noopener">https://huggingface.co/papers/2604.19748</a></span>
+      <div class="article-cover"><img src="https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2604.19748/gradient.png" alt="Tstars-Tryon 1.0：针对多样化时尚单品的鲁棒且逼真的虚拟试穿系统" /></div>
+      <div class="article-body" id="article-body"></div>
+      <div class="article-footer">
+        <div class="footer-back">← <a href="../index.html">返回 AI 日报</a></div>
+        <div class="orig-link">查看原文：<a href="https://huggingface.co/papers/2604.19748" target="_blank" rel="noopener">🔗 </a></div>
+      </div>
+    </article>
+  </div>
+</main>
+<script>
+  var md = '# Tstars-Tryon 1.0：虚拟试穿系统技术拆解与营销场景应用分析\n\n---\n\n## 是什么（1-2句）\n\nTstars-Tryon 1.0 是一个针对多样化时尚单品的虚拟试穿（Virtual Try-On）系统，核心解决了现有 VTON 方案在复杂服装款式（印花、图案、异形剪裁）下变形失真、细节丢失的鲁棒性问题，能够生成高度逼真的穿着效果图。\n\n---\n\n## 核心能力/进展\n\n- **多样化服饰适配**：对印花T恤、复杂图案、宽松/异形剪裁等"难处理"品类保持细节保真度，而非仅支持素色简单款\n- **鲁棒性增强**：在不同体型、姿态、光照条件下仍能稳定输出，减少边缘变形与伪影（artifacts）\n- **逼真渲染质量**：生成图像在布料质感、阴影、褶皱上达到接近真实摄影级别的效果\n- **单品泛化能力**：支持从单张商品平铺图（flat-lay）直接合成到模特身上，无需配对训练数据\n- **多模态输入兼容**：可接受不同来源的服装图像作为输入，降低商家的素材准备门槛\n- **系统化工程封装**：以完整系统（1.0版本）形式发布，具备实际部署可行性，而非单纯学术 demo\n\n---\n\n## 与现有方案对比\n\n| 维度 | 传统 VTON（VITON-HD / HR-VTON） | Tstars-Tryon 1.0 |\n|---|---|---|\n| 复杂图案保真 | 易模糊/变形，印花失真 | 显著改善，细节保留更完整 |\n| 体型/姿态鲁棒性 | 对非标准姿态效果下降明显 | 鲁棒性为核心设计目标 |\n| 工程化程度 | 多为学术复现，部署成本高 | 1.0系统版本，具备集成条件 |\n| 商品图输入要求 | 通常需要高质量规范素材 | 对输入宽容度更高 |\n\n现有主流方案（如 IDM-VTON、CatVTON）在学术指标上表现不错，但对电商实际场景中大量存在的"花哨款"服装处理效果差；Tstars-Tryon 的差异化正在于以工程鲁棒性为优先，而非单纯追求 benchmark 分数。\n\n---\n\n## 💡 可以结合的方向\n\n### 方向一：AI 直生营销会场中的「商品动态试穿组件」\n\n在高达平台的 AI 直生营销会场场景中，当前 Agent 自动生成的活动页面以静态商品图为主，视觉吸引力有限。可以将 Tstars-Tryon 1.0 封装为一个**标准化 UI 组件**，由 Agent 在生成服装类活动页时自动调用——用户只需自然语言描述"帮我做一个夏季T恤促销会场"，Agent 即可拉取 SKU 平铺图，批量生成模特试穿效果图并填充进页面模板。这使得营销会场从"商品陈列页"升级为"穿搭种草页"，与小红书、抖音的内容形态对齐。关键工程动作是将 VTON 推理接口标准化为平台内部 Tool，供 Agent 调用时传入 `sku_image_url` + `model_type` 参数即可返回试穿图 URL。\n\n---\n\n### 方向二：供给 API 化中的「视觉增强商品信息层」\n\n在供给 API 化体系中，商品/优惠券的结构化数据目前主要是文字属性（价格、品类、标签）。可以在商品 API 响应体中新增 `tryon_preview_url` 字段，由后台异步调用 Tstars-Tryon 对入库服装 SKU 批量预生成试穿图，作为商品元数据的一部分持久化存储。当营销策略引擎做商品匹配时，可以将"是否有高质量试穿图"作为一个**视觉质量信号**纳入匹配权重——有试穿图的服装 SKU 优先推入视觉型会场，无图的降级到列表型场景。这样既提升了供给侧数据的丰富度，也让营销策略自动匹配具备了视觉维度的感知能力。\n\n---\n\n### 方向三：高达 CLI 中的「试穿效果即时预览指令」\n\n在高达 CLI 的对话式营销搭建场景中，运营同学通过命令行描述需求、实时预览效果。可以新增 `tryon` 子命令，例如：\n\n```bash\ngaoda tryon --sku SKU_ID_12345 --model default_female --output page_banner\n```\n\n执行后直接在 CLI 终端返回试穿图预览链接或内嵌图片，并询问"是否将此图替换当前会场主 Banner？"。这将试穿图的生成从"提需求→设计师出图→审核→上传"的多日流程，压缩为 CLI 内的秒级闭环操作。对于服装类商家的运营人员，这一能力能显著降低视觉素材的生产摩擦，让 CLI 从"搭建工具"进化为"内容生产工具"，提升高达平台对服装垂类商家的核心价值。';
+  document.getElementById('article-body').innerHTML = marked.parse(md);
+</script>
+</body>
+</html>

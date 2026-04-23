@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat2Workflow：利用自然语言生成可执行可视化工作流的基准测试 — AI 日报</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f0f0f; --bg-2: #161616; --bg-3: #1c1c1c; --bg-4: #242424;
+      --border: rgba(255,255,255,0.07); --border-hover: rgba(255,255,255,0.18);
+      --text-primary: #f0ede8; --text-secondary: #a09a92; --text-tertiary: #635e58;
+      --accent: #63b3ed; --accent-dim: rgba(99,179,237,0.12);
+      --green: #56d364; --yellow: #e3b341; --purple: #bc8cff;
+      --font: 'Geist', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1); --radius: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text-primary);
+      line-height: 1.7; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 800px; width: 100%; margin: 0 auto; padding: 0 24px; }
+
+    .site-header {
+      border-bottom: 1px solid var(--border); padding: 16px 0;
+      position: sticky; top: 0;
+      background: rgba(15,15,15,0.88); backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px); z-index: 100;
+    }
+    .header-inner { display: flex; align-items: center; gap: 16px; }
+    .back-link {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--text-secondary);
+      transition: color 150ms; cursor: pointer;
+    }
+    .back-link:hover { color: var(--text-primary); text-decoration: none; }
+    .brand-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+
+    .article-wrapper { padding: 48px 0 80px; }
+    .article-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .source-tag {
+      font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 100px;
+      background: var(--accent-dim); color: var(--accent);
+      border: 1px solid rgba(99,179,237,0.3);
+    }
+    .date-tag {
+      font-size: 11px; color: var(--text-tertiary);
+    }
+    .score-tag {
+      font-size: 11px; padding: 3px 9px; border-radius: 100px;
+      background: rgba(86,211,100,0.1); color: var(--green);
+      border: 1px solid rgba(86,211,100,0.2);
+    }
+    .article-title {
+      font-size: 28px; font-weight: 700; line-height: 1.3;
+      letter-spacing: -0.02em; margin-bottom: 12px;
+    }
+    .article-source-link {
+      font-size: 12px; color: var(--text-tertiary); margin-bottom: 32px;
+      display: block;
+    }
+    .article-source-link a { color: var(--text-tertiary); }
+    .article-source-link a:hover { color: var(--accent); }
+
+    .article-cover { margin-bottom: 32px; border-radius: var(--radius); overflow: hidden; }
+    .article-cover img { width: 100%; height: 360px; object-fit: cover; display: block; }
+
+    .article-body { font-size: 16px; line-height: 1.85; color: var(--text-primary); }
+    .article-body h1, .article-body h2, .article-body h3 {
+      font-weight: 700; margin: 2em 0 0.8em; line-height: 1.3; letter-spacing: -0.01em;
+    }
+    .article-body h1 { font-size: 24px; }
+    .article-body h2 { font-size: 20px; }
+    .article-body h3 { font-size: 17px; color: var(--text-secondary); }
+    .article-body p { margin: 0 0 1.4em; }
+    .article-body ul, .article-body ol { padding-left: 1.5em; margin: 0 0 1.4em; }
+    .article-body li { margin-bottom: 0.4em; }
+    .article-body blockquote {
+      border-left: 3px solid var(--accent); padding: 12px 20px;
+      margin: 1.4em 0; background: var(--accent-dim); border-radius: 0 8px 8px 0;
+    }
+    .article-body blockquote p { margin: 0; color: var(--text-secondary); font-style: italic; }
+    .article-body code {
+      font-size: 13px; background: var(--bg-3); padding: 2px 6px;
+      border-radius: 4px; font-family: 'JetBrains Mono', monospace;
+    }
+    .article-body pre { background: var(--bg-3); padding: 20px; border-radius: var(--radius);
+      overflow-x: auto; margin: 1.4em 0; }
+    .article-body pre code { background: none; padding: 0; }
+    .article-body strong { font-weight: 700; color: #fff; }
+    .article-body em { color: var(--text-secondary); }
+    .article-body hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
+    .article-body a { color: var(--accent); }
+
+    .article-footer {
+      margin-top: 48px; padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-back { font-size: 13px; color: var(--text-secondary); }
+    .footer-back a { color: var(--accent); }
+    .orig-link { font-size: 13px; color: var(--text-tertiary); }
+    .orig-link a { color: var(--text-tertiary); }
+    .orig-link a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="../index.html" class="back-link">← 返回日报</a>
+      <span class="brand-title">⚡ AI 日报 · 精华文章</span>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container">
+    <article class="article-wrapper">
+      <div class="article-meta">
+        <span class="source-tag">🔗 </span>
+        <span class="date-tag">2026-04-23</span>
+        
+      </div>
+      <h1 class="article-title">Chat2Workflow：利用自然语言生成可执行可视化工作流的基准测试</h1>
+      <span class="article-source-link">原文：<a href="https://huggingface.co/papers/2604.19667" target="_blank" rel="noopener">https://huggingface.co/papers/2604.19667</a></span>
+      <div class="article-cover"><img src="https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2604.19667/gradient.png" alt="Chat2Workflow：利用自然语言生成可执行可视化工作流的基准测试" /></div>
+      <div class="article-body" id="article-body"></div>
+      <div class="article-footer">
+        <div class="footer-back">← <a href="../index.html">返回 AI 日报</a></div>
+        <div class="orig-link">查看原文：<a href="https://huggingface.co/papers/2604.19667" target="_blank" rel="noopener">🔗 </a></div>
+      </div>
+    </article>
+  </div>
+</main>
+<script>
+  var md = '# Chat2Workflow：自然语言生成可执行可视化工作流基准测试解析\n\n## 是什么（1-2句）\n\nChat2Workflow 是一个专注于**自然语言→可执行可视化工作流**生成能力的基准测试框架，核心解决的问题是：如何客观评估大模型将用户意图转化为结构化、可运行的节点式工作流的能力边界。\n\n---\n\n## 核心能力/进展\n\n- **标准化评测基准**：提供一套专门针对"自然语言描述→DAG/节点工作流"转化任务的测试集，填补该细分方向评测空白\n- **可执行性验证**：不仅评估生成工作流的结构正确性，还引入"能否真正运行"作为核心评测维度，区别于纯文本生成评估\n- **可视化工作流覆盖**：基准覆盖节点连接逻辑、条件分支、循环控制等多种工作流拓扑结构\n- **多模型横向对比**：支持对主流 LLM 在工作流生成任务上的能力进行横向排名与差异分析\n- **意图对齐评估**：引入用户意图与最终工作流语义一致性的量化指标，而非仅看语法合法性\n- **开放数据集**：基准数据集公开发布，便于研究社区复现和持续迭代\n\n---\n\n## 与现有方案对比\n\n| 维度 | 现有方案（如 FlowBench、一般代码生成基准） | Chat2Workflow |\n|------|------------------------------------------|---------------|\n| 输出形态 | 代码/伪代码为主 | 可视化节点工作流（DAG） |\n| 评测重点 | 语法正确率、功能等价 | 可执行性 + 意图对齐 + 拓扑正确性 |\n| 场景针对性 | 通用编程任务 | 专注低代码/no-code 工作流平台场景 |\n| 落地路径 | 需人工转译为平台格式 | 直接面向可视化工作流平台的生成链路 |\n\n**核心差异**：Chat2Workflow 把"能跑起来"和"跑的是用户想要的"同时纳入评测，这在低代码平台 AI 化方向上比通用代码基准更贴近真实产品需求。\n\n---\n\n## 💡 可以结合的方向\n\n### 方向一：为 AI 直生营销会场引入工作流质量评估体系\n\n当前 AI 直生营销会场的核心挑战之一是：Agent 生成的活动页面和 UI 组件**质量参差不齐，缺乏客观评估标准**。Chat2Workflow 的评测框架思路可以直接迁移——将"用户自然语言描述的营销诉求"到"生成的会场 DSL/组件编排"这条链路，参照其**可执行性+意图对齐**双维度建立内部评测基准。具体来说，可以构建一批标准营销场景的 golden case（如"双11主会场，首屏banner+倒计时+爆款坑位9个"），用于持续回归测试每次 Agent 模型升级后的生成质量是否退化。这套基准还能反向指导 Prompt 工程和微调数据的优化方向，避免凭人工主观判断模型好坏。\n\n### 方向二：供给 API 化中的策略-商品匹配工作流自动生成\n\n供给 API 化的本质是把"营销策略执行"变成一套可编排的调用链——这恰好是一个**自然语言→工作流**的典型场景。可以借鉴 Chat2Workflow 的节点化思路，将商品筛选、优惠券匹配、库存校验、价格计算等 API 能力封装为标准"节点"，让运营通过自然语言描述（如"给近30天购买过运动鞋、客单价>500的用户推荐当季新品并自动匹配满300减50券"）直接生成可执行的供给编排工作流。Chat2Workflow 的可执行性评测方法论可以用来验证生成的 API 调用链是否真正能端到端跑通，而不只是结构看起来合理。这个方向能大幅降低运营配置复杂策略的门槛，把原本需要技术介入的供给组合逻辑交还给业务侧。\n\n### 方向三：高达 CLI 的工作流生成能力基准化\n\n高达 CLI 目前通过对话/命令行控制营销搭建，其核心能力之一就是**将命令意图转化为平台可执行的操作序列**——这与 Chat2Workflow 解决的问题高度同构。可以将 Chat2Workflow 的基准测试方法引入 CLI 的研发流程：为 CLI 常见指令场景（如"复制上周大促会场并把主题色换成红色"、"在当前页面第三坑位插入限时秒杀组件"）构建标准测试用例，评测 CLI 背后 LLM 的意图理解→操作步骤生成→平台 API 调用链路的完整成功率。此外，Chat2Workflow 中关于**条件分支和循环拓扑**的工作流生成能力，可以直接支撑 CLI 处理更复杂的批量操作指令（如"遍历所有在线会场，将过期活动的报名入口隐藏"），推动 CLI 从单步指令执行升级为多步自动化工作流执行。';
+  document.getElementById('article-body').innerHTML = marked.parse(md);
+</script>
+</body>
+</html>

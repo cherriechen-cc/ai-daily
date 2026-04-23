@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A-MAR：基于智能体的多模态艺术检索用于细粒度艺术品理解 — AI 日报</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f0f0f; --bg-2: #161616; --bg-3: #1c1c1c; --bg-4: #242424;
+      --border: rgba(255,255,255,0.07); --border-hover: rgba(255,255,255,0.18);
+      --text-primary: #f0ede8; --text-secondary: #a09a92; --text-tertiary: #635e58;
+      --accent: #63b3ed; --accent-dim: rgba(99,179,237,0.12);
+      --green: #56d364; --yellow: #e3b341; --purple: #bc8cff;
+      --font: 'Geist', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1); --radius: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text-primary);
+      line-height: 1.7; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 800px; width: 100%; margin: 0 auto; padding: 0 24px; }
+
+    .site-header {
+      border-bottom: 1px solid var(--border); padding: 16px 0;
+      position: sticky; top: 0;
+      background: rgba(15,15,15,0.88); backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px); z-index: 100;
+    }
+    .header-inner { display: flex; align-items: center; gap: 16px; }
+    .back-link {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--text-secondary);
+      transition: color 150ms; cursor: pointer;
+    }
+    .back-link:hover { color: var(--text-primary); text-decoration: none; }
+    .brand-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+
+    .article-wrapper { padding: 48px 0 80px; }
+    .article-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .source-tag {
+      font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 100px;
+      background: var(--accent-dim); color: var(--accent);
+      border: 1px solid rgba(99,179,237,0.3);
+    }
+    .date-tag {
+      font-size: 11px; color: var(--text-tertiary);
+    }
+    .score-tag {
+      font-size: 11px; padding: 3px 9px; border-radius: 100px;
+      background: rgba(86,211,100,0.1); color: var(--green);
+      border: 1px solid rgba(86,211,100,0.2);
+    }
+    .article-title {
+      font-size: 28px; font-weight: 700; line-height: 1.3;
+      letter-spacing: -0.02em; margin-bottom: 12px;
+    }
+    .article-source-link {
+      font-size: 12px; color: var(--text-tertiary); margin-bottom: 32px;
+      display: block;
+    }
+    .article-source-link a { color: var(--text-tertiary); }
+    .article-source-link a:hover { color: var(--accent); }
+
+    .article-cover { margin-bottom: 32px; border-radius: var(--radius); overflow: hidden; }
+    .article-cover img { width: 100%; height: 360px; object-fit: cover; display: block; }
+
+    .article-body { font-size: 16px; line-height: 1.85; color: var(--text-primary); }
+    .article-body h1, .article-body h2, .article-body h3 {
+      font-weight: 700; margin: 2em 0 0.8em; line-height: 1.3; letter-spacing: -0.01em;
+    }
+    .article-body h1 { font-size: 24px; }
+    .article-body h2 { font-size: 20px; }
+    .article-body h3 { font-size: 17px; color: var(--text-secondary); }
+    .article-body p { margin: 0 0 1.4em; }
+    .article-body ul, .article-body ol { padding-left: 1.5em; margin: 0 0 1.4em; }
+    .article-body li { margin-bottom: 0.4em; }
+    .article-body blockquote {
+      border-left: 3px solid var(--accent); padding: 12px 20px;
+      margin: 1.4em 0; background: var(--accent-dim); border-radius: 0 8px 8px 0;
+    }
+    .article-body blockquote p { margin: 0; color: var(--text-secondary); font-style: italic; }
+    .article-body code {
+      font-size: 13px; background: var(--bg-3); padding: 2px 6px;
+      border-radius: 4px; font-family: 'JetBrains Mono', monospace;
+    }
+    .article-body pre { background: var(--bg-3); padding: 20px; border-radius: var(--radius);
+      overflow-x: auto; margin: 1.4em 0; }
+    .article-body pre code { background: none; padding: 0; }
+    .article-body strong { font-weight: 700; color: #fff; }
+    .article-body em { color: var(--text-secondary); }
+    .article-body hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
+    .article-body a { color: var(--accent); }
+
+    .article-footer {
+      margin-top: 48px; padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-back { font-size: 13px; color: var(--text-secondary); }
+    .footer-back a { color: var(--accent); }
+    .orig-link { font-size: 13px; color: var(--text-tertiary); }
+    .orig-link a { color: var(--text-tertiary); }
+    .orig-link a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="../index.html" class="back-link">← 返回日报</a>
+      <span class="brand-title">⚡ AI 日报 · 精华文章</span>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container">
+    <article class="article-wrapper">
+      <div class="article-meta">
+        <span class="source-tag">🔗 </span>
+        <span class="date-tag">2026-04-23</span>
+        
+      </div>
+      <h1 class="article-title">A-MAR：基于智能体的多模态艺术检索用于细粒度艺术品理解</h1>
+      <span class="article-source-link">原文：<a href="https://arxiv.org/abs/2604.19689" target="_blank" rel="noopener">https://arxiv.org/abs/2604.19689</a></span>
+      <div class="article-cover"><img src="/static/browse/0.3.4/images/arxiv-logo-fb.png" alt="A-MAR：基于智能体的多模态艺术检索用于细粒度艺术品理解" /></div>
+      <div class="article-body" id="article-body"></div>
+      <div class="article-footer">
+        <div class="footer-back">← <a href="../index.html">返回 AI 日报</a></div>
+        <div class="orig-link">查看原文：<a href="https://arxiv.org/abs/2604.19689" target="_blank" rel="noopener">🔗 </a></div>
+      </div>
+    </article>
+  </div>
+</main>
+<script>
+  var md = '# A-MAR：多模态智能体艺术检索系统拆解分析\n\n## 是什么（1-2句）\n\nA-MAR 是一个基于 Agent 的多模态艺术品检索与理解系统，通过多步推理将视觉内容识别与文化、历史、风格背景信息融合，解决现有多模态大模型在细粒度艺术品理解上"看得见但读不懂"的问题。\n\n---\n\n## 核心能力/进展\n\n- **多步推理检索**：Agent 不是一次性匹配，而是拆解艺术品理解任务为多个子步骤（构图→风格→背景→语义），逐层递进检索\n- **细粒度视觉-语义对齐**：能区分同一流派下不同艺术家的细微风格差异，而非停留在"印象派""油画"等粗粒度标签\n- **多模态上下文融合**：将图像特征与文化语境、历史时期、创作背景等非视觉信息联合建模\n- **Agent 工具调用架构**：系统具备动态调用外部知识库/检索工具的能力，突破单一模型知识边界\n- **细粒度艺术品 Benchmark**：论文同步提出了针对艺术品理解的评测集，填补该领域评估标准空白\n\n---\n\n## 与现有方案对比\n\n| 维度 | 传统图像检索（CLIP等） | 通用 MLLM（GPT-4V等） | A-MAR |\n|------|-------------------|--------------------|-------|\n| 检索粒度 | 粗粒度语义匹配 | 描述能力强但检索弱 | 细粒度风格+背景联合检索 |\n| 推理深度 | 单步向量相似度 | 单轮问答 | 多步 Agent 推理链 |\n| 知识边界 | 训练数据内 | 训练数据内 | 可扩展外部知识库 |\n| 艺术专业性 | 弱 | 中等 | 针对性强 |\n\n核心差异点在于：A-MAR 把"检索"和"推理"解耦后再融合，Agent 架构让系统具备动态补充领域知识的能力，这是静态向量检索模型做不到的。\n\n---\n\n## 💡 可以结合的方向\n\n### 方向一：AI 直生营销会场的「视觉风格感知」能力增强\n\n当前直生营销会场通过自然语言生成活动页面，但在"风格一致性"上往往缺乏深度——用户说"高端感""国潮风"，系统很难精准映射到具体的色彩、排版、图形语言。可以借鉴 A-MAR 的多步风格推理机制，构建一个**营销视觉风格知识库**（类似艺术品背景库），让 Agent 在生成 UI 组件时先做"风格多步推理"：品类→目标人群→节日氛围→历史参考案例→输出设计 token。具体落地可以先从大促场景切入（如双11、年货节），将平台历史高转化会场作为"艺术品语料库"，让系统学会从视觉细节层面理解什么是"高转化的视觉风格"，而不只是关键词匹配。\n\n### 方向二：供给 API 化中的「商品视觉-营销语义」跨模态匹配\n\n供给 API 化的核心挑战之一是：商品图片和营销策略之间的匹配目前依赖文字标签（类目、价格段），但大量有效信息藏在商品视觉里（材质、使用场景、情绪氛围）。A-MAR 的细粒度视觉-语义对齐能力可以直接复用到这个场景：**用多模态 Agent 对商品图做细粒度视觉解析**，提取超越 SPU 标签的视觉特征（如"温暖家居感""户外运动感"），再与优惠券/活动策略的语义标签做细粒度匹配。例如一张沙发商品图，Agent 可推理出"适合家装季场景 > 适合搭配家纺满减券 > 不适合拼多多式秒杀样式"，让供给匹配从关键词级升级到视觉语义级。\n\n### 方向三：高达 CLI 中的「参考图理解」指令解析能力\n\n高达 CLI 目前通过自然语言指令控制营销搭建，但设计师/运营最自然的工作方式往往是"参考这张图，做一个类似的"——即以图为指令。A-MAR 的多模态多步推理架构可以赋予 CLI 一个**"读图转指令"的前处理模块**：用户上传一张竞品活动页截图或设计稿，Agent 自动拆解其构图结构、色彩风格、组件布局、文案层级，转译成高达平台的结构化 DSL 指令，再交由 CLI 执行搭建。这样一来，CLI 的输入形式从"纯文本自然语言"扩展为"图文混合指令"，大幅降低运营同学的表达成本，也让"对标竞品快速复刻"这个高频需求变得可自动化。';
+  document.getElementById('article-body').innerHTML = marked.parse(md);
+</script>
+</body>
+</html>
