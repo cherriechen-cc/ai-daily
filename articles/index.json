@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-04-24-746f0d",
+      "title": "How to Design a Production-Grade CAMEL Multi-Agent System with Planning, Tool Use, Self-Consistency, and Critique-Driven Refinement",
+      "summary": "In this tutorial, we implement an advanced agentic AI system using the CAMEL framework, orchestrating multiple specialized agents to collaboratively s",
+      "source": "",
+      "date": "2026-04-24",
+      "score": 11
+    },
+    {
+      "slug": "2026-04-24-5209cd",
+      "title": "Alibaba Qwen Team Releases Qwen3.6-27B: A Dense Open-Weight Model Outperforming 397B MoE on Agentic Coding Benchmarks",
+      "summary": "Alibaba&#8217;s Qwen Team has released Qwen3.6-27B, the first dense open-weight model in the Qwen3.6 family — and arguably the most capable 27-billion",
+      "source": "",
+      "date": "2026-04-24",
+      "score": 11
+    },
+    {
+      "slug": "2026-04-24-279ac5",
+      "title": "OpenAI Releases GPT-5.5, a Fully Retrained Agentic Model That Scores 82.7% on Terminal-Bench 2.0 and 84.9% on GDPval",
+      "summary": "The model targets the full stack of computer work — coding, research, data analysis, and software operation — without needing a human to supervise eve",
+      "source": "",
+      "date": "2026-04-24",
+      "score": 3
+    },
+    {
+      "slug": "2026-04-24-9bfd9b",
+      "title": "A Coding Tutorial on OpenMythos on Recurrent-Depth Transformers with Depth Extrapolation, Adaptive Computation, and Mixture-of-Experts Routing",
+      "summary": "In this tutorial, we explore the implementation of OpenMythos, a theoretical reconstruction of the Claude Mythos architecture that enables deeper reas",
+      "source": "",
+      "date": "2026-04-24",
+      "score": 3
+    },
+    {
       "slug": "2026-04-23-385903",
       "title": "阿里巴巴Qwen团队发布Qwen3.6-27B：一款在智能体编码基准测试中超越3970亿MoE模型的密集开权重模型",
       "summary": "阿里巴巴Qwen团队发布了Qwen3.6-27B，这是Qwen3.6系列中首个密集开权重模型，可以说是迄今最强的270亿参数",
