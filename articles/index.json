@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-04-25-746f0d",
+      "title": "How to Design a Production-Grade CAMEL Multi-Agent System with Planning, Tool Use, Self-Consistency, and Critique-Driven Refinement",
+      "summary": "In this tutorial, we implement an advanced agentic AI system using the CAMEL framework, orchestrating multiple specialized agents to collaboratively s",
+      "source": "",
+      "date": "2026-04-25",
+      "score": 11
+    },
+    {
+      "slug": "2026-04-25-279ac5",
+      "title": "OpenAI Releases GPT-5.5, a Fully Retrained Agentic Model That Scores 82.7% on Terminal-Bench 2.0 and 84.9% on GDPval",
+      "summary": "The model targets the full stack of computer work — coding, research, data analysis, and software operation — without needing a human to supervise eve",
+      "source": "",
+      "date": "2026-04-25",
+      "score": 3
+    },
+    {
+      "slug": "2026-04-25-9bfd9b",
+      "title": "A Coding Tutorial on OpenMythos on Recurrent-Depth Transformers with Depth Extrapolation, Adaptive Computation, and Mixture-of-Experts Routing",
+      "summary": "In this tutorial, we explore the implementation of OpenMythos, a theoretical reconstruction of the Claude Mythos architecture that enables deeper reas",
+      "source": "",
+      "date": "2026-04-25",
+      "score": 3
+    },
+    {
+      "slug": "2026-04-25-6aaa95",
+      "title": "DeepSeek AI Releases DeepSeek-V4: Compressed Sparse Attention and Heavily Compressed Attention Enable One-Million-Token Contexts",
+      "summary": "DeepSeek-AI has released a preview version of the DeepSeek-V4 series: two Mixture-of-Experts (MoE) language models built around one core challenge mak",
+      "source": "",
+      "date": "2026-04-25",
+      "score": 0
+    },
+    {
       "slug": "2026-04-24-746f0d",
       "title": "How to Design a Production-Grade CAMEL Multi-Agent System with Planning, Tool Use, Self-Consistency, and Critique-Driven Refinement",
       "summary": "In this tutorial, we implement an advanced agentic AI system using the CAMEL framework, orchestrating multiple specialized agents to collaboratively s",
