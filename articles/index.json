@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-04-28-ed71ae",
+      "title": "量子位专访楼天城：AI是匹脱缰野马，Harness是这个时代最关键的能力",
+      "summary": "",
+      "source": "",
+      "date": "2026-04-28",
+      "score": 0
+    },
+    {
+      "slug": "2026-04-28-d71ba4",
+      "title": "Meshy用户破千万后杀向新战场：ARR年翻14倍，头部厂商集体买单",
+      "summary": "",
+      "source": "",
+      "date": "2026-04-28",
+      "score": 0
+    },
+    {
+      "slug": "2026-04-28-ae8dcb",
+      "title": "全球首个医疗视频理解大模型开源！6k+组精标测试集与英雄榜同步上线，开发者速来！",
+      "summary": "",
+      "source": "",
+      "date": "2026-04-28",
+      "score": 0
+    },
+    {
+      "slug": "2026-04-28-8112e7",
+      "title": "国内首家百亿估值纯推理GPU独角兽诞生！专访曦望联席CEO王湛：谁的推理成本更低谁就是赢家",
+      "summary": "",
+      "source": "",
+      "date": "2026-04-28",
+      "score": 0
+    },
+    {
       "slug": "2026-04-25-746f0d",
       "title": "How to Design a Production-Grade CAMEL Multi-Agent System with Planning, Tool Use, Self-Consistency, and Critique-Driven Refinement",
       "summary": "In this tutorial, we implement an advanced agentic AI system using the CAMEL framework, orchestrating multiple specialized agents to collaboratively s",
