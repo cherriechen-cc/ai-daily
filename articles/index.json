@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-04-29-1a760c",
+      "title": "Meta AI Releases Sapiens2: A High-Resolution Human-Centric Vision Model for Pose, Segmentation, Normals, Pointmap, and Albedo",
+      "summary": "Meta Reality Labs releases a new foundation model family for human-centric vision that pushes pose estimation, segmentation, and 3D geometry to new st",
+      "source": "",
+      "date": "2026-04-29",
+      "score": 3
+    },
+    {
+      "slug": "2026-04-29-1f628a",
+      "title": "OpenAI预计用户将大幅转向更便宜的ChatGPT套餐",
+      "summary": "当地时间4月28日，据报道，OpenAI预计，其更便宜、含广告的套餐不仅将吸引新用户，也会促使数千万付费订阅用户降级。OpenAI预计，今年其消费者订阅用户将增长一倍以上，达到1.22亿，并在2030年增至3.06亿。其中，旗舰月费套餐ChatGPT Plus的订阅用户数量预计今年将下降80%，至约",
+      "source": "",
+      "date": "2026-04-29",
+      "score": 3
+    },
+    {
+      "slug": "2026-04-29-9048e7",
+      "title": "OpenAI Releases Privacy Filter: A 1.5B-Parameter Open-Source PII Redaction Model with 50M Active Parameters",
+      "summary": "OpenAI's Privacy Filter Is a 1.5B-Parameter PII Detector Built on a Distilled Decoder — And It Runs in Your Browser The post OpenAI Releases Privacy F",
+      "source": "",
+      "date": "2026-04-29",
+      "score": 0
+    },
+    {
+      "slug": "2026-04-29-ce472c",
+      "title": "Top 10 Physical AI Models Powering Real-World Robots in 2026",
+      "summary": "The gap between language model capabilities and robotic deployment has been narrowing considerably over the past 18 months. A new class of foundation ",
+      "source": "",
+      "date": "2026-04-29",
+      "score": 0
+    },
+    {
       "slug": "2026-04-28-ed71ae",
       "title": "量子位专访楼天城：AI是匹脱缰野马，Harness是这个时代最关键的能力",
       "summary": "",
