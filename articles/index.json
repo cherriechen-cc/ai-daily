@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-04-30-b8bc6e",
+      "title": "Poolside AI Introduces Laguna XS.2 and M.1: Agentic Coding Models Reaching 68.2% and 72.5% on SWE-bench Verified",
+      "summary": "Poolside Releases Laguna XS.2 and M.1: Open-Weight Agentic Coding Models Built for Long-Horizon Tasks The post Poolside AI Introduces Laguna XS.2 and ",
+      "source": "",
+      "date": "2026-04-30",
+      "score": 8
+    },
+    {
+      "slug": "2026-04-30-33fc32",
+      "title": "Qwen Team Releases FlashQLA: a High-Performance Linear Attention Kernel Library That Achieves Up to 3× Speedup on NVIDIA Hopper GPUs",
+      "summary": "The QwenLM team has released FlashQLA, a new kernel library that dramatically accelerates the forward and backward passes of Gated Delta Network (GDN)",
+      "source": "",
+      "date": "2026-04-30",
+      "score": 3
+    },
+    {
+      "slug": "2026-04-30-128cbe",
+      "title": "A Coding Implementation on Document Parsing Benchmarking with LlamaIndex ParseBench Using Python, Hugging Face, and Evaluation Metrics",
+      "summary": "In this tutorial, we explore how to use the ParseBench dataset to evaluate document parsing systems in a structured, practical way. We begin by loadin",
+      "source": "",
+      "date": "2026-04-30",
+      "score": 3
+    },
+    {
+      "slug": "2026-04-30-1c8961",
+      "title": "银河通用LDA定义全域数据利用范式，跨本体世界动作大模型开启具身GPT-2时刻",
+      "summary": "",
+      "source": "",
+      "date": "2026-04-30",
+      "score": 3
+    },
+    {
       "slug": "2026-04-29-1a760c",
       "title": "Meta AI Releases Sapiens2: A High-Resolution Human-Centric Vision Model for Pose, Segmentation, Normals, Pointmap, and Albedo",
       "summary": "Meta Reality Labs releases a new foundation model family for human-centric vision that pushes pose estimation, segmentation, and 3D geometry to new st",
