@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-05-01-79701e",
+      "title": "Cursor Introduces a TypeScript SDK for Building Programmatic Coding Agents With Sandboxed Cloud VMs, Subagents, Hooks, and Token-Based Pricing",
+      "summary": "Cursor Launches TypeScript SDK to Let Developers Build and Deploy Programmatic Coding Agents The post Cursor Introduces a TypeScript SDK for Building ",
+      "source": "",
+      "date": "2026-05-01",
+      "score": 8
+    },
+    {
+      "slug": "2026-05-01-33fc32",
+      "title": "Qwen Team Releases FlashQLA: a High-Performance Linear Attention Kernel Library That Achieves Up to 3× Speedup on NVIDIA Hopper GPUs",
+      "summary": "The QwenLM team has released FlashQLA, a new kernel library that dramatically accelerates the forward and backward passes of Gated Delta Network (GDN)",
+      "source": "",
+      "date": "2026-05-01",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-01-1c8961",
+      "title": "银河通用LDA定义全域数据利用范式，跨本体世界动作大模型开启具身GPT-2时刻",
+      "summary": "",
+      "source": "",
+      "date": "2026-05-01",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-01-738b72",
+      "title": "A Coding Implementation on Pyright Type Checking Covering Generics, Protocols, Strict Mode, Type Narrowing, and Modern Python Typing",
+      "summary": "A Coding Implementation on Pyright Type Checking Covering Generics, Protocols, Strict Mode, Type Narrowing, and Modern Python Typing The post A Coding",
+      "source": "",
+      "date": "2026-05-01",
+      "score": 0
+    },
+    {
       "slug": "2026-04-30-b8bc6e",
       "title": "Poolside AI Introduces Laguna XS.2 and M.1: Agentic Coding Models Reaching 68.2% and 72.5% on SWE-bench Verified",
       "summary": "Poolside Releases Laguna XS.2 and M.1: Open-Weight Agentic Coding Models Built for Long-Horizon Tasks The post Poolside AI Introduces Laguna XS.2 and ",
