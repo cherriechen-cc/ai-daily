@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-05-02-9e4c64",
+      "title": "Qwen AI Releases Qwen-Scope: An Open-Source Sparse AutoEncoders (SAE) Suite That Turns LLM Internal Features into Practical Development Tools",
+      "summary": "Qwen Team Introduces Qwen-Scope: An Open-Source Sparse Autoencoder Suite That Turns LLM Internals into Practical Development Tools The post Qwen AI Re",
+      "source": "",
+      "date": "2026-05-02",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-02-8b6051",
+      "title": "A Coding Implementation of End-to-End Brain Decoding from MEG Signals Using NeuralSet and Deep Learning for Predicting Linguistic Features",
+      "summary": "In this tutorial, we explore how we can decode linguistic features directly from brain signals using a modern neuroAI pipeline. We work with MEG data ",
+      "source": "",
+      "date": "2026-05-02",
+      "score": 0
+    },
+    {
+      "slug": "2026-05-02-a29cc1",
+      "title": "Meta Introduces Autodata: An Agentic Framework That Turns AI Models into Autonomous Data Scientists for High-Quality Training Data Creation",
+      "summary": "Meta Introduces Autodata: An Agentic Framework That Turns AI Models into Autonomous Data Scientists for High-Quality Training Data Creation The post M",
+      "source": "",
+      "date": "2026-05-02",
+      "score": 0
+    },
+    {
+      "slug": "2026-05-02-46b955",
+      "title": "A Coding Guide on LLM Post Training with TRL from Supervised Fine Tuning to DPO and GRPO Reasoning",
+      "summary": "In this tutorial, we walk through a complete, hands-on journey of post-training large language models using the powerful TRL (Transformer Reinforcemen",
+      "source": "",
+      "date": "2026-05-02",
+      "score": 0
+    },
+    {
       "slug": "2026-05-01-79701e",
       "title": "Cursor Introduces a TypeScript SDK for Building Programmatic Coding Agents With Sandboxed Cloud VMs, Subagents, Hooks, and Token-Based Pricing",
       "summary": "Cursor Launches TypeScript SDK to Let Developers Build and Deploy Programmatic Coding Agents The post Cursor Introduces a TypeScript SDK for Building ",
