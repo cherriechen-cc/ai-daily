@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-05-03-704d7e",
+      "title": "Build a Multi-Agent AI Workflow for Biological Network Modeling, Protein Interactions, Metabolism, and Cell Signaling Simulation",
+      "summary": "Build a Multi-Agent AI Workflow for Biological Network Modeling, Protein Interactions, Metabolism, and Cell Signaling Simulation The post Build a Mult",
+      "source": "",
+      "date": "2026-05-03",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-03-9e4c64",
+      "title": "Qwen AI Releases Qwen-Scope: An Open-Source Sparse AutoEncoders (SAE) Suite That Turns LLM Internal Features into Practical Development Tools",
+      "summary": "Qwen Team Introduces Qwen-Scope: An Open-Source Sparse Autoencoder Suite That Turns LLM Internals into Practical Development Tools The post Qwen AI Re",
+      "source": "",
+      "date": "2026-05-03",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-03-adfadb",
+      "title": "苹果官方App误打包了Claude.md，这么大的公司也Vibe Coding啊？",
+      "summary": "",
+      "source": "",
+      "date": "2026-05-03",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-03-e1f62b",
+      "title": "A Coding Implementation to Parsing, Analyzing, Visualizing, and Fine-Tuning Agent Reasoning Traces Using the lambda/hermes-agent-reasoning-traces Dataset",
+      "summary": "In this tutorial, we explore the lambda/hermes-agent-reasoning-traces dataset to understand how agent-based models think, use tools, and generate resp",
+      "source": "",
+      "date": "2026-05-03",
+      "score": 0
+    },
+    {
       "slug": "2026-05-02-9e4c64",
       "title": "Qwen AI Releases Qwen-Scope: An Open-Source Sparse AutoEncoders (SAE) Suite That Turns LLM Internal Features into Practical Development Tools",
       "summary": "Qwen Team Introduces Qwen-Scope: An Open-Source Sparse Autoencoder Suite That Turns LLM Internals into Practical Development Tools The post Qwen AI Re",
