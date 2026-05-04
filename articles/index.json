@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-05-04-704d7e",
+      "title": "Build a Multi-Agent AI Workflow for Biological Network Modeling, Protein Interactions, Metabolism, and Cell Signaling Simulation",
+      "summary": "Build a Multi-Agent AI Workflow for Biological Network Modeling, Protein Interactions, Metabolism, and Cell Signaling Simulation The post Build a Mult",
+      "source": "",
+      "date": "2026-05-04",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-04-adfadb",
+      "title": "苹果官方App误打包了Claude.md，这么大的公司也Vibe Coding啊？",
+      "summary": "",
+      "source": "",
+      "date": "2026-05-04",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-04-8427ff",
+      "title": "A Developer’s Guide to Systematic Prompting: Mastering Negative Constraints, Structured JSON Outputs, and Multi-Hypothesis Verbalized Sampling",
+      "summary": "Most developers treat prompting as an afterthought—write something reasonable, observe the output, and iterate if needed. That approach works until re",
+      "source": "",
+      "date": "2026-05-04",
+      "score": 0
+    },
+    {
+      "slug": "2026-05-04-0bd2bb",
+      "title": "A Coding Implementation to Explore and Analyze the TaskTrove Dataset with Streaming Parsing Visualization and Verifier Detection",
+      "summary": "In this tutorial, we take a deep dive into the TaskTrove dataset on Hugging Face and build a complete, practical workflow to efficiently explore it. I",
+      "source": "",
+      "date": "2026-05-04",
+      "score": 0
+    },
+    {
       "slug": "2026-05-03-704d7e",
       "title": "Build a Multi-Agent AI Workflow for Biological Network Modeling, Protein Interactions, Metabolism, and Cell Signaling Simulation",
       "summary": "Build a Multi-Agent AI Workflow for Biological Network Modeling, Protein Interactions, Metabolism, and Cell Signaling Simulation The post Build a Mult",
