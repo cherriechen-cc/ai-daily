@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-05-05-8003f7",
+      "title": "Zyphra Introduces Tensor and Sequence Parallelism (TSP): A Hardware-Aware Training and Inference Strategy That Delivers 2.6x Throughput Over Matched TP+SP Baselines",
+      "summary": "Zyphra Introduces Tensor and Sequence Parallelism (TSP): A Folded Parallelism Strategy That Reduces Both Parameter and Activation Memory Across the Sa",
+      "source": "",
+      "date": "2026-05-05",
+      "score": 0
+    },
+    {
+      "slug": "2026-05-05-b07b9e",
+      "title": "How to Build an End-to-End Production Grade Machine Learning Pipeline with ZenML, Including Custom Materializers, Metadata Tracking, and Hyperparameter Optimization",
+      "summary": "In this tutorial, we walk through an end-to-end implementation of an advanced machine learning pipeline using ZenML. We begin by setting up the enviro",
+      "source": "",
+      "date": "2026-05-05",
+      "score": 0
+    },
+    {
+      "slug": "2026-05-05-c5aee8",
+      "title": "Top Search and Fetch APIs for Building AI Agents in 2026: Tools, Tradeoffs, and Free Tiers",
+      "summary": "Discover the top search and fetch APIs for AI agents in 2026. Compare tools like TinyFish, Tavily, and Firecrawl based on latency, token efficiency, a",
+      "source": "",
+      "date": "2026-05-05",
+      "score": 0
+    },
+    {
+      "slug": "2026-05-05-8427ff",
+      "title": "A Developer’s Guide to Systematic Prompting: Mastering Negative Constraints, Structured JSON Outputs, and Multi-Hypothesis Verbalized Sampling",
+      "summary": "Most developers treat prompting as an afterthought—write something reasonable, observe the output, and iterate if needed. That approach works until re",
+      "source": "",
+      "date": "2026-05-05",
+      "score": 0
+    },
+    {
       "slug": "2026-05-04-704d7e",
       "title": "Build a Multi-Agent AI Workflow for Biological Network Modeling, Protein Interactions, Metabolism, and Cell Signaling Simulation",
       "summary": "Build a Multi-Agent AI Workflow for Biological Network Modeling, Protein Interactions, Metabolism, and Cell Signaling Simulation The post Build a Mult",
