@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-05-06-109d81",
+      "title": "Google Adds Event-Driven Webhooks to the Gemini API, Eliminating the Need for Polling in Long-Running AI Jobs",
+      "summary": "A push-based notification system for Batch API, Deep Research, and video generation tasks arrives with built-in security, retry guarantees, and two co",
+      "source": "",
+      "date": "2026-05-06",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-06-e05bf6",
+      "title": "“DeepSeek版Claude Code”，Github 2.3k星",
+      "summary": "",
+      "source": "",
+      "date": "2026-05-06",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-06-adfadb",
+      "title": "苹果官方App误打包了Claude.md，这么大的公司也Vibe Coding啊？",
+      "summary": "",
+      "source": "",
+      "date": "2026-05-06",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-06-a3a1c7",
+      "title": "Closing the ‘Expressivity Gap’: How Mistral’s Voxtral TTS is Redefining Multilingual Voice Cloning with a Hybrid Autoregressive and Flow-Matching Architecture",
+      "summary": "Voice AI has a dirty secret. Most text-to-speech systems sound fine — until they don&#8217;t. They can read a sentence. What they cannot do is mean it",
+      "source": "",
+      "date": "2026-05-06",
+      "score": 0
+    },
+    {
       "slug": "2026-05-05-8003f7",
       "title": "Zyphra Introduces Tensor and Sequence Parallelism (TSP): A Hardware-Aware Training and Inference Strategy That Delivers 2.6x Throughput Over Matched TP+SP Baselines",
       "summary": "Zyphra Introduces Tensor and Sequence Parallelism (TSP): A Folded Parallelism Strategy That Reduces Both Parameter and Activation Memory Across the Sa",
