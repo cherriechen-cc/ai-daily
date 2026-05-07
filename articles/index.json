@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-05-07-e05bf6",
+      "title": "“DeepSeek版Claude Code”，Github 2.3k星",
+      "summary": "",
+      "source": "",
+      "date": "2026-05-07",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-07-c5f5d0",
+      "title": "香蕉和GPT Image之外的第3条路：华人15人团队造出AI生图黑马",
+      "summary": "",
+      "source": "",
+      "date": "2026-05-07",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-07-15814d",
+      "title": "陶哲轩在线安利Claude Code：审稿意见全给它，15分钟欧了",
+      "summary": "",
+      "source": "",
+      "date": "2026-05-07",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-07-8112e7",
+      "title": "国内首家百亿估值纯推理GPU独角兽诞生！专访曦望联席CEO王湛：谁的推理成本更低谁就是赢家",
+      "summary": "",
+      "source": "",
+      "date": "2026-05-07",
+      "score": 0
+    },
+    {
       "slug": "2026-05-06-109d81",
       "title": "Google Adds Event-Driven Webhooks to the Gemini API, Eliminating the Need for Polling in Long-Running AI Jobs",
       "summary": "A push-based notification system for Batch API, Deep Research, and video generation tasks arrives with built-in security, retry guarantees, and two co",
