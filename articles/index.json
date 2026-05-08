@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-05-08-d83ea0",
+      "title": "LightSeek Foundation Releases TokenSpeed, an Open-Source LLM Inference Engine Targeting TensorRT-LLM-Level Performance for Agentic Workloads",
+      "summary": "Inference efficiency has quietly become one of the most consequential bottlenecks in AI deployment. As agentic coding systems such as Claude Code, Cod",
+      "source": "",
+      "date": "2026-05-08",
+      "score": 11
+    },
+    {
+      "slug": "2026-05-08-97f658",
+      "title": "When Claude Hallucinates in Court: The Latham & Watkins Incident and What It Means for Attorney Liability",
+      "summary": "There is a particular kind of irony that the legal profession rarely gets to witness in such pristine form. In May 2025, Latham &#38; Watkins a firm t",
+      "source": "",
+      "date": "2026-05-08",
+      "score": 3
+    },
+    {
+      "slug": "2026-05-08-fca95f",
+      "title": "Meta AI Releases NeuralBench: A Unified Open-Source Framework to Benchmark NeuroAI Models Across 36 EEG Tasks and 94 Datasets",
+      "summary": "Meta AI team has released NeuralBench, a unified open-source framework for benchmarking NeuroAI models, alongside NeuralBench-EEG v1.0 — the largest o",
+      "source": "",
+      "date": "2026-05-08",
+      "score": 0
+    },
+    {
+      "slug": "2026-05-08-5c5b4d",
+      "title": "OpenAI Introduces MRC (Multipath Reliable Connection): A New Open Networking Protocol for Large-Scale AI Supercomputer Training Clusters",
+      "summary": "MRC (Multipath Reliable Connection) is a new open networking protocol developed by OpenAI in partnership with AMD, Broadcom, Intel, Microsoft, and NVI",
+      "source": "",
+      "date": "2026-05-08",
+      "score": 0
+    },
+    {
       "slug": "2026-05-07-e05bf6",
       "title": "“DeepSeek版Claude Code”，Github 2.3k星",
       "summary": "",
