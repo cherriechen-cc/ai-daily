@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-05-09-b227d9",
+      "title": "所有实验室都怕字节，所有人都在夸DeepSeek！美国研究员36小时中国AI行",
+      "summary": "",
+      "source": "",
+      "date": "2026-05-09",
+      "score": 0
+    },
+    {
+      "slug": "2026-05-09-596608",
+      "title": "离谱！一句话+百元预算，这只龙虾就给我搓出了一支百万级广告片？",
+      "summary": "",
+      "source": "",
+      "date": "2026-05-09",
+      "score": 0
+    },
+    {
+      "slug": "2026-05-09-63b7c1",
+      "title": "Token需求狂飙千倍，22亿热钱涌向这家AGI Infra头号玩家",
+      "summary": "",
+      "source": "",
+      "date": "2026-05-09",
+      "score": 0
+    },
+    {
+      "slug": "2026-05-09-ac1d8d",
+      "title": "原生Agent杀入画布！一站式搞定专业创作，全程可控、不抽卡",
+      "summary": "",
+      "source": "",
+      "date": "2026-05-09",
+      "score": 0
+    },
+    {
       "slug": "2026-05-08-d83ea0",
       "title": "LightSeek Foundation Releases TokenSpeed, an Open-Source LLM Inference Engine Targeting TensorRT-LLM-Level Performance for Agentic Workloads",
       "summary": "Inference efficiency has quietly become one of the most consequential bottlenecks in AI deployment. As agentic coding systems such as Claude Code, Cod",
