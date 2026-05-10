@@ -1,6 +1,38 @@
 {
   "articles": [
     {
+      "slug": "2026-05-10-7a526b",
+      "title": "Meet GitHub Spec-Kit: An Open Source Toolkit for Spec-Driven Development with AI Coding Agents",
+      "summary": "If you have spent time using AI coding agents — GitHub Copilot, Claude Code, Gemini CLI — you have probably run into this situation: you describe what",
+      "source": "",
+      "date": "2026-05-10",
+      "score": 11
+    },
+    {
+      "slug": "2026-05-10-6c4518",
+      "title": "9 Best AI Tools for Spec-Driven Development in 2026: Kiro, BMAD, GSD, and More Compare",
+      "summary": "Vibe coding gets you to a prototype. Spec-driven development gets you to production. As AI coding agents grow more powerful, the engineering community",
+      "source": "",
+      "date": "2026-05-10",
+      "score": 5
+    },
+    {
+      "slug": "2026-05-10-c04caa",
+      "title": "OpenAI Adds Chrome Extension to Codex, Letting Its AI Agent Access LinkedIn, Salesforce, Gmail, and Internal Tools via Signed-In Sessions",
+      "summary": "OpenAI has shipped a Chrome extension for Codex, its AI coding agent, enabling it to complete browser-based tasks directly inside Google Chrome on mac",
+      "source": "",
+      "date": "2026-05-10",
+      "score": 5
+    },
+    {
+      "slug": "2026-05-10-40d76b",
+      "title": "Anthropic Introduces Natural Language Autoencoders That Convert Claude’s Internal Activations Directly into Human-Readable Text Explanations",
+      "summary": "When you type a message to Claude, something invisible happens in the middle. The words you send get converted into long lists of numbers called activ",
+      "source": "",
+      "date": "2026-05-10",
+      "score": 3
+    },
+    {
       "slug": "2026-05-09-b227d9",
       "title": "所有实验室都怕字节，所有人都在夸DeepSeek！美国研究员36小时中国AI行",
       "summary": "",
